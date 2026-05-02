@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum | Pixella Webdesign Agentur</title>
+    <meta name="description"
+        content="Impressum und rechtliche Informationen von PIXELLA - Die erste lebende Website der Welt.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f17;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --dna-1: #00f0ff;
+            --dna-2: #a855f7;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background: var(--dna-1);
+            color: var(--bg-primary);
+        }
+
+        a {
+            color: var(--dna-1);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--dna-2);
+        }
+
+        /* Nav */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .nav-logo-text {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .nav-back:hover {
+            color: var(--dna-1);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 10rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: var(--dna-1);
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--dna-1);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero-badge::before {
+            content: '//';
+            opacity: 0.5;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Content */
+        .content {
+            padding: 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title-icon {
+            font-size: 1.25rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content strong {
+            color: var(--text-primary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+        }
+
+        .info-card-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--dna-1);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .info-card-value {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 4rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-text a {
+            color: var(--dna-1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .hero {
+                padding: 8rem 2rem 3rem;
+            }
+
+            .content {
+                padding: 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 2rem;
+            }
+        }
+    </style>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="bb45384b-1441-4ae9-b6c9-85eeb2bcbd4d"
+        data-blockingmode="auto" type="text/javascript"></script>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo" aria-label="PIXELLA Startseite"><img
+                src="img/webdesign_wien_pixella_logo.webp" class="logo"
+                alt="Pixella - Webdesign Agentur Wien & Burgenland"><span class="nav-logo-text">IXELLA</span></a>
+        <a href="index.html" class="nav-back">← Zurück zur Startseite</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Rechtliches</div>
+            <h1 class="hero-title"><span>Impressum</span></h1>
+            <p class="hero-description">Angaben gemäß § 5 ECG, § 14 UGB und § 25 MedienG</p>
+        </div>
+    </section>
+
+    <main class="content">
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🏢</span> Unternehmensangaben</h2>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-label">Firmenname</div>
+                        <div class="info-card-value">PIXELLA</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-label">Rechtsform</div>
+                        <div class="info-card-value">Einzelunternehmen</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-label">Inhaber</div>
+                        <div class="info-card-value">Chris Conen</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-label">UID-Nummer</div>
+                        <div class="info-card-value">HU56302415</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-label">Registernummer</div>
+                        <div class="info-card-value">54933347</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">📍</span> Kontaktdaten</h2>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-label">Adresse</div>
+                        <div class="info-card-value">Lepke Str. 9<br>H-9134</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-label">E-Mail</div>
+                        <div class="info-card-value"><a href="mailto:chris@pixella.at">chris@pixella.at</a></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-label">Telefon</div>
+                        <div class="info-card-value">+43 664 9975 4512</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-label">Website</div>
+                        <div class="info-card-value"><a href="https://pixella.at">www.pixella.at</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">⚖️</span> Rechtliche Hinweise</h2>
+            <div class="section-content">
+                <p><strong>Aufsichtsbehörde:</strong> Landesfinanz- und Steueramt Ungarn (NAV), Bezirksamt Győr </p>
+                <p><strong>Anwendbare Rechtsvorschriften:</strong> Gewerbeordnung (Ungarn), E-Commerce Gesetz</p>
+                <p><strong>Unternehmensgegenstand:</strong> Webdesign, Marketing Automation, AI Softwareentwicklung,
+                    Online Marketing.</p>
+                <p><strong>Online-Streitbeilegung:</strong> Verbraucher haben die Möglichkeit, Beschwerden an die
+                    Online-Streitbeilelegungsplattform der EU zu richten: http://ec.europa.eu/odr. Sie können allfällige
+                    Beschwerde auch an die oben angegebene E-Mail-Adresse richten.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🖼️</span> Urheberrecht</h2>
+            <div class="section-content">
+                <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
+                    österreichischen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
+                    Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des
+                    jeweiligen Autors bzw. Erstellers.</p>
+                <p>Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🔗</span> Haftung für Links</h2>
+            <div class="section-content">
+                <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss
+                    haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte
+                    der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+                <p>Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft.
+                    Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente
+                    inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer
+                    Rechtsverletzung nicht zumutbar.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🛡️</span> Streitschlichtung</h2>
+            <div class="section-content">
+                <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a
+                        href="https://ec.europa.eu/consumers/odr" target="_blank">https://ec.europa.eu/consumers/odr</a>
+                </p>
+                <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+                    Verbraucherschlichtungsstelle teilzunehmen.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-text">
+            © 2026 PIXELLA. All Rights Reserved.<br>
+            <div style="font-size: 0.85em; margin-top: 10px; opacity: 0.8;">
+                Strategic Direction & Content: <strong>Gemini Nexus (CMO & CSO)</strong><br>
+                Architecture: <strong>Claude AI (CTO)</strong><br>
+                CEO: <strong>Chris Conen</strong>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="agb.html">AGB</a>
+        </div>
+    </footer>
+</body>
+
+</html>

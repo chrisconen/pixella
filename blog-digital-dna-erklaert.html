@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital DNA erklärt: So funktioniert die Technologie | PIXELLA Blog</title>
+    <meta name="description"
+        content="Ein technischer Deep-Dive in die Digital DNA Technologie. Wie funktioniert das Tracking? Welche Algorithmen werden verwendet? Alles erklärt.">
+    <meta name="keywords"
+        content="digital dna, tracking technologie, javascript tracking, user behavior, algorithmen, webdesign technologie">
+    <link rel="canonical" href="https://pixella.at/blog-digital-dna-erklaert.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f17;
+            --bg-tertiary: #161622;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --dna-1: #00f0ff;
+            --dna-2: #a855f7;
+            --dna-3: #22c55e;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--dna-1);
+            text-decoration: none;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo-text {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .article-hero {
+            padding: 10rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-hero-bg {
+            position: absolute;
+            inset: 0;
+        }
+
+        .article-hero-gradient {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--dna-2), var(--dna-1));
+        }
+
+        .article-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .article-category {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--dna-2);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .article-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .article-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .article-info {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .article-content {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 3rem 0 1.25rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+        }
+
+        .article-content code {
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--dna-1);
+            border-radius: 4px;
+        }
+
+        .article-content pre {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .code-comment {
+            color: var(--text-muted);
+        }
+
+        .code-keyword {
+            color: var(--dna-2);
+        }
+
+        .code-string {
+            color: var(--dna-3);
+        }
+
+        .code-number {
+            color: var(--dna-1);
+        }
+
+        .metric-box {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .metric-icon {
+            font-size: 3rem;
+        }
+
+        .metric-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-formula {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--dna-1);
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .article-cta {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .article-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .footer {
+            padding: 3rem 4rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .article-hero {
+                padding: 8rem 2rem 3rem;
+            }
+
+            .article-content {
+                padding: 3rem 1.5rem 4rem;
+            }
+
+            .metric-box {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo"><span class="nav-logo-text">PIXELLA</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html#trust">Warum wir?</a></li>
+            <li><a href="webseite-leistungen.html">Das 24/7 Büro</a></li>
+            <li><a href="seo-leistungen.html">Wachstum</a></li>
+            <li><a href="eco-clean-burgenland-fallstudie.html">Fallstudie</a></li>
+            <li><a href="webdesign-blog.html" style="color: var(--dna-1); font-weight: 700;">Blog</a></li>
+            <li><a href="index.html#about">Über uns</a></li>
+        </ul>
+        <a href="index.html#contact" class="nav-cta">Projekt starten</a>
+    </nav>
+
+    <header class="article-hero">
+        <div class="article-hero-bg">
+            <div class="article-hero-gradient"></div>
+        </div>
+        <div class="article-hero-content">
+            <div class="article-category">Technologie</div>
+            <h1 class="article-title">Digital DNA erklärt: So funktioniert die Technologie</h1>
+            <div class="article-meta">
+                <div class="article-author">
+                    <div class="article-avatar">👨‍💻</div>
+                    <div><strong>Chris Conen</strong></div>
+                </div>
+                <div class="article-info">
+                    <span>8. Dezember 2025</span>
+                    <span>7 min Lesezeit</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <article class="article-content">
+        <p><strong>Unter der Haube der Living Website arbeitet ein komplexes System von Sensoren, Algorithmen und
+                Echtzeit-Anpassungen.</strong> In diesem technischen Deep-Dive erkläre ich, wie die Digital DNA
+            Technologie funktioniert.</p>
+
+        <h2>Die Architektur im Überblick</h2>
+
+        <p>Das DNA-System besteht aus drei Hauptkomponenten:</p>
+
+        <ol>
+            <li><strong>Sensoren:</strong> JavaScript Event-Listener, die Benutzerinteraktionen erfassen</li>
+            <li><strong>Engine:</strong> Der Algorithmus, der DNA-Werte berechnet</li>
+            <li><strong>Renderer:</strong> Das System, das UI-Anpassungen durchführt</li>
+        </ol>
+
+        <p>Alles läuft clientseitig — keine Server-Kommunikation für das Tracking. Das bedeutet: maximale Performance
+            und vollständiger Datenschutz.</p>
+
+        <h2>Die vier DNA-Metriken im Detail</h2>
+
+        <div class="metric-box">
+            <div class="metric-icon">⚡</div>
+            <div>
+                <h3 class="metric-title">Energie</h3>
+                <p>Misst die Geschwindigkeit und Intensität der Mausbewegungen. Schnelle, dynamische Besucher haben hohe
+                    Energie-Werte.</p>
+                <div class="metric-formula">speed = √(dx² + dy²) / dt * multiplier</div>
+            </div>
+        </div>
+
+        <div class="metric-box">
+            <div class="metric-icon">🎯</div>
+            <div>
+                <h3 class="metric-title">Fokus</h3>
+                <p>Inverse Korrelation zur Energie. Konzentrierte Besucher bewegen die Maus langsamer und präziser.</p>
+                <div class="metric-formula">focus = 105 - energy (clamped 5-100)</div>
+            </div>
+        </div>
+
+        <div class="metric-box">
+            <div class="metric-icon">🎵</div>
+            <div>
+                <h3 class="metric-title">Rhythmus</h3>
+                <p>Analysiert das Scroll-Tempo. Werte von 0.5x (langsam) bis 2.0x (schnell).</p>
+                <div class="metric-formula">rhythm = scrollSpeed / baseline (0.5 - 2.0)</div>
+            </div>
+        </div>
+
+        <div class="metric-box">
+            <div class="metric-icon">💡</div>
+            <div>
+                <h3 class="metric-title">Interesse</h3>
+                <p>Kombiniert Klickfrequenz mit Aktivitätszeit. Hohe Interaktion = hohes Interesse.</p>
+                <div class="metric-formula">interest = clicks * 6 + (50 - idleTime)</div>
+            </div>
+        </div>
+
+        <h2>Der Tracking-Code</h2>
+
+        <p>So sieht der vereinfachte Sensor-Code aus:</p>
+
+        <pre><code><span class="code-comment">// Mouse Position Tracking</span>
+<span class="code-keyword">document</span>.addEventListener(<span class="code-string">'mousemove'</span>, e => {
+    DNA.mouseData.push({
+        x: e.clientX,
+        y: e.clientY,
+        t: Date.now()
+    });
+    DNA.lastActive = Date.now();
+});
+
+<span class="code-comment">// Scroll Tracking</span>
+<span class="code-keyword">window</span>.addEventListener(<span class="code-string">'scroll'</span>, () => {
+    DNA.scrollData.push(<span class="code-keyword">window</span>.scrollY);
+    DNA.lastActive = Date.now();
+}, { passive: <span class="code-keyword">true</span> });
+
+<span class="code-comment">// Click Tracking</span>
+<span class="code-keyword">document</span>.addEventListener(<span class="code-string">'click'</span>, () => {
+    DNA.clicks++;
+    DNA.lastActive = Date.now();
+});</code></pre>
+
+        <h2>Die Berechnung</h2>
+
+        <p>Alle 200ms berechnet die Engine die DNA-Werte neu:</p>
+
+        <pre><code><span class="code-keyword">const</span> calculate = () => {
+    <span class="code-comment">// Energie aus Mausgeschwindigkeit</span>
+    <span class="code-keyword">let</span> speed = <span class="code-number">0</span>;
+    <span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = <span class="code-number">1</span>; i < mouseData.length; i++) {
+        <span class="code-keyword">const</span> dx = mouseData[i].x - mouseData[i-<span class="code-number">1</span>].x;
+        <span class="code-keyword">const</span> dy = mouseData[i].y - mouseData[i-<span class="code-number">1</span>].y;
+        <span class="code-keyword">const</span> dt = mouseData[i].t - mouseData[i-<span class="code-number">1</span>].t;
+        speed += Math.sqrt(dx*dx + dy*dy) / dt * <span class="code-number">12</span>;
+    }
+    DNA.energy = clamp(speed / mouseData.length, <span class="code-number">5</span>, <span class="code-number">100</span>);
+    
+    <span class="code-comment">// Fokus invers zur Energie</span>
+    DNA.focus = clamp(<span class="code-number">105</span> - DNA.energy, <span class="code-number">5</span>, <span class="code-number">100</span>);
+    
+    <span class="code-comment">// Rhythmus aus Scroll-Daten</span>
+    DNA.rhythm = calculateRhythm(scrollData);
+    
+    <span class="code-comment">// Interesse aus Klicks + Aktivität</span>
+    <span class="code-keyword">const</span> idle = (Date.now() - lastActive) / <span class="code-number">1000</span>;
+    DNA.interest = clamp(clicks * <span class="code-number">6</span> + (<span class="code-number">50</span> - idle), <span class="code-number">5</span>, <span class="code-number">100</span>);
+};</code></pre>
+
+        <h2>Persistenz mit LocalStorage</h2>
+
+        <p>Die DNA wird lokal gespeichert, sodass wiederkehrende Besucher erkannt werden:</p>
+
+        <pre><code><span class="code-comment">// Speichern beim Verlassen</span>
+<span class="code-keyword">window</span>.addEventListener(<span class="code-string">'beforeunload'</span>, () => {
+    localStorage.setItem(<span class="code-string">'pixella_dna'</span>, 
+        JSON.stringify(DNA)
+    );
+});
+
+<span class="code-comment">// Laden beim Start</span>
+<span class="code-keyword">const</span> saved = localStorage.getItem(<span class="code-string">'pixella_dna'</span>);
+<span class="code-keyword">if</span> (saved) DNA = JSON.parse(saved);</code></pre>
+
+        <h2>UI-Anpassungen in Echtzeit</h2>
+
+        <p>Die DNA-Werte steuern verschiedene UI-Eigenschaften:</p>
+
+        <ul>
+            <li><strong>Animationsgeschwindigkeit:</strong> Hohe Energie = schnellere Animationen</li>
+            <li><strong>Partikel-Bewegung:</strong> DNA steuert Canvas-Effekte</li>
+            <li><strong>Farbintensität:</strong> Engagement beeinflusst Farbsättigung</li>
+            <li><strong>Content-Dichte:</strong> Fokus beeinflusst Informationsmenge</li>
+        </ul>
+
+        <h2>Performance-Optimierungen</h2>
+
+        <p>Um die Website performant zu halten, nutzen wir mehrere Techniken:</p>
+
+        <ul>
+            <li><strong>Array-Limits:</strong> Maximal 40 Mauspositions, 25 Scroll-Events</li>
+            <li><strong>Throttling:</strong> Berechnung alle 200ms, nicht bei jedem Event</li>
+            <li><strong>RequestAnimationFrame:</strong> Für Canvas-Animationen</li>
+            <li><strong>CSS Custom Properties:</strong> Effiziente Style-Updates</li>
+        </ul>
+
+        <div class="article-cta">
+            <h3>Living Website für Ihr Projekt?</h3>
+            <p>Nutzen Sie die DNA-Technologie für Ihre eigene Website.</p>
+            <a href="leistungen/living-websites.html" class="btn">Mehr erfahren →</a>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <p class="footer-text">© 2025 PIXELLA. Created by Chris Conen & Claude AI</p>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <a href="datenschutz.html">Datenschutz</a>
+                <a href="agb.html">AGB</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="intent-engine.js" defer></script>
+
+</body>
+
+</html>

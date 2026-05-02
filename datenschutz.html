@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutzerklärung | PIXELLA.AT</title>
+    <meta name="description"
+        content="Datenschutzerklärung von PIXELLA - Informationen zum Schutz Ihrer persönlichen Daten.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f17;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --dna-1: #00f0ff;
+            --dna-2: #a855f7;
+            --dna-3: #22c55e;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background: var(--dna-1);
+            color: var(--bg-primary);
+        }
+
+        a {
+            color: var(--dna-1);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--dna-2);
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .nav-logo-text {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-back:hover {
+            color: var(--dna-1);
+        }
+
+        .hero {
+            padding: 10rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: var(--dna-2);
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--dna-2);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero-badge::before {
+            content: '//';
+            opacity: 0.5;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--dna-2), var(--dna-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .content {
+            padding: 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title-icon {
+            font-size: 1.25rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content strong {
+            color: var(--text-primary);
+        }
+
+        .section-content ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .section-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--dna-1);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--dna-1);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            padding: 3rem 4rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-text a {
+            color: var(--dna-1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .hero {
+                padding: 8rem 2rem 3rem;
+            }
+
+            .content {
+                padding: 2rem;
+            }
+
+            .footer {
+                padding: 2rem;
+            }
+        }
+    </style>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="bb45384b-1441-4ae9-b6c9-85eeb2bcbd4d"
+        data-blockingmode="auto" type="text/javascript"></script>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo" aria-label="PIXELLA Startseite"><img
+                src="img/webdesign_wien_pixella_logo.webp" class="logo"
+                alt="Pixella - Webdesign Agentur Wien & Burgenland"><span class="nav-logo-text">IXELLA</span></a>
+        <a href="index.html" class="nav-back">← Zurück zur Startseite</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">DSGVO</div>
+            <h1 class="hero-title"><span>Datenschutz</span></h1>
+            <p class="hero-description">Informationen zum Schutz Ihrer persönlichen Daten gemäß DSGVO</p>
+        </div>
+    </section>
+
+    <main class="content">
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">👋</span> Einleitung</h2>
+            <div class="section-content">
+                <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher
+                    ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003).</p>
+                <p>In dieser Datenschutzerklärung informieren wir Sie über die wichtigsten Aspekte der Datenverarbeitung
+                    im Rahmen unserer Website.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">👤</span> Verantwortlicher</h2>
+            <div class="section-content">
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Kontakt</div>
+                    <p><strong>PIXELLA</strong><br>
+                        Chris Conen<br>
+                        H-9134, Lepke Strasse 9<br>
+                        Ungarn<br>
+                        E-Mail: <a href="mailto:chris@pixella.at">chris@pixella.at</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🧬</span> DNA-Tracking auf dieser Website</h2>
+            <div class="section-content">
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Wichtiger Hinweis</div>
+                    <p>Diese Website verwendet ein innovatives "Digital DNA"-System zur Verbesserung der
+                        Benutzererfahrung. Dabei werden <strong>keine personenbezogenen Daten</strong> gespeichert oder
+                        an Dritte übertragen.</p>
+                </div>
+                <p><strong>Was wird erfasst?</strong></p>
+                <ul>
+                    <li>Mausbewegungsgeschwindigkeit (anonym, nur im Browser)</li>
+                    <li>Scrollverhalten (anonym, nur im Browser)</li>
+                    <li>Klickanzahl (anonym, nur im Browser)</li>
+                </ul>
+                <p><strong>Wie werden die Daten gespeichert?</strong></p>
+                <p>Alle DNA-Daten werden ausschließlich lokal in Ihrem Browser (localStorage) gespeichert und niemals an
+                    unsere Server übertragen. Sie können diese Daten jederzeit durch Löschen Ihrer Browser-Daten
+                    entfernen.</p>
+                <p><strong>Zweck:</strong> Die Daten dienen ausschließlich dazu, die Website-Darstellung in Echtzeit an
+                    Ihr Browsing-Verhalten anzupassen und Ihnen ein personalisiertes Erlebnis zu bieten.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">📧</span> Kontaktformular</h2>
+            <div class="section-content">
+                <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem
+                    Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage
+                    und für den Fall von Anschlussfragen bei uns gespeichert.</p>
+                <p><strong>Erfasste Daten:</strong></p>
+                <ul>
+                    <li>Name</li>
+                    <li>E-Mail-Adresse</li>
+                    <li>Firma (optional)</li>
+                    <li>Budget (optional)</li>
+                    <li>Nachricht</li>
+                </ul>
+                <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung)</p>
+                <p><strong>Speicherdauer:</strong> Ihre Daten werden nach abschließender Bearbeitung Ihrer Anfrage
+                    gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🍪</span> Cookies</h2>
+            <div class="section-content">
+                <p>Unsere Website verwendet nur technisch notwendige Cookies. Diese Cookies sind für den Betrieb der
+                    Website erforderlich und können nicht deaktiviert werden.</p>
+                <p><strong>Verwendete Cookies:</strong></p>
+                <ul>
+                    <li><strong>localStorage (pixella_dna):</strong> Speichert Ihre DNA-Einstellungen lokal in Ihrem
+                        Browser</li>
+                </ul>
+                <p>Wir verwenden <strong>keine</strong> Tracking-Cookies, Marketing-Cookies oder Cookies von
+                    Drittanbietern.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🔒</span> Datensicherheit</h2>
+            <div class="section-content">
+                <p>Wir verwenden SSL/TLS-Verschlüsselung für die Übertragung von Daten. Dies erkennen Sie an dem
+                    Schloss-Symbol in Ihrer Browserzeile und daran, dass die URL mit "https://" beginnt.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">📊</span> Webhosting</h2>
+            <div class="section-content">
+                <p>Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst
+                    werden, werden auf den Servern des Hosters gespeichert.</p>
+                <p>Hierbei kann es sich um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten,
+                    Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden,
+                    handeln.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">✅</span> Ihre Rechte</h2>
+            <div class="section-content">
+                <p>Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung,
+                    Datenübertragbarkeit und Widerspruch zu. Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen
+                    das Datenschutzrecht verstößt oder Ihre datenschutzrechtlichen Ansprüche sonst in einer Weise
+                    verletzt worden sind, können Sie sich bei der Aufsichtsbehörde beschweren.</p>
+                <p><strong>In Österreich ist dies die Datenschutzbehörde:</strong></p>
+                <div class="highlight-box">
+                    <p>Österreichische Datenschutzbehörde<br>
+                        Barichgasse 40-42<br>
+                        1030 Wien<br>
+                        <a href="mailto:dsb@dsb.gv.at">dsb@dsb.gv.at</a><br>
+                        <a href="https://www.dsb.gv.at" target="_blank">www.dsb.gv.at</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><span class="section-title-icon">🔄</span> Änderungen</h2>
+            <div class="section-content">
+                <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen
+                    rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen umzusetzen.</p>
+                <p><strong>Stand:</strong> Januar 2026</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-text">
+            © 2026 PIXELLA. All Rights Reserved.<br>
+            <div style="font-size: 0.85em; margin-top: 10px; opacity: 0.8;">
+                Strategic Direction & Content: <strong>Gemini Nexus (CMO & CSO)</strong><br>
+                Architecture: <strong>Claude AI (CTO)</strong><br>
+                CEO: <strong>Chris Conen</strong>
+            </div>
+        </div>
+        <div class="footer-links">
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="agb.html">AGB</a>
+        </div>
+    </footer>
+
+    <script src="intent-engine.js" defer></script>
+
+</body>
+
+</html>

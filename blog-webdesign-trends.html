@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webdesign Trends 2025: Von Dark Mode bis Micro-Interactions | PIXELLA Blog</title>
+    <meta name="description"
+        content="Die visuellen Trends im Webdesign 2025: Dark Mode, Micro-Interactions, 3D-Elemente, Bento Grids und mehr. Inspiration für Ihr nächstes Projekt.">
+    <meta name="keywords"
+        content="webdesign trends 2025, website design, dark mode, micro interactions, ui design, ux trends">
+    <link rel="canonical" href="https://pixella.at/blog-webdesign-trends.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f17;
+            --bg-tertiary: #161622;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --dna-1: #00f0ff;
+            --dna-2: #a855f7;
+            --accent: #a855f7;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--dna-1);
+            text-decoration: none;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo-text {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .article-hero {
+            padding: 10rem 4rem 4rem;
+            position: relative;
+            text-align: center;
+        }
+
+        .article-hero-gradient {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), var(--dna-1));
+        }
+
+        .article-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article-category {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-content {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 3rem 0 1.25rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .article-content ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+        }
+
+        .trend-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .trend-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .trend-card-icon {
+            font-size: 2.5rem;
+        }
+
+        .trend-card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .trend-card p {
+            margin-bottom: 0;
+            color: var(--text-secondary);
+        }
+
+        .example-box {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .example-box strong {
+            color: var(--accent);
+        }
+
+        .article-cta {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .article-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent), var(--dna-1));
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .footer {
+            padding: 3rem 4rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .article-hero {
+                padding: 8rem 2rem 3rem;
+            }
+
+            .article-content {
+                padding: 3rem 1.5rem 4rem;
+            }
+
+            .footer {
+                padding: 2rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo"><span class="nav-logo-text">PIXELLA</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html#trust">Warum wir?</a></li>
+            <li><a href="webseite-leistungen.html">Das 24/7 Büro</a></li>
+            <li><a href="seo-leistungen.html">Wachstum</a></li>
+            <li><a href="eco-clean-burgenland-fallstudie.html">Fallstudie</a></li>
+            <li><a href="webdesign-blog.html" style="color: var(--dna-1); font-weight: 700;">Blog</a></li>
+            <li><a href="index.html#about">Über uns</a></li>
+        </ul>
+        <a href="index.html#contact" class="nav-cta">Projekt starten</a>
+    </nav>
+
+    <header class="article-hero">
+        <div class="article-hero-gradient"></div>
+        <div class="article-hero-content">
+            <div class="article-category">WEBDESIGN</div>
+            <h1 class="article-title">Webdesign Trends 2025: Von Dark Mode bis Micro-Interactions</h1>
+            <div class="article-meta"><span>5. Dezember 2025</span><span>4 min Lesezeit</span></div>
+        </div>
+    </header>
+
+    <article class="article-content">
+        <p><strong>Das Web wird 2025 lebendiger, persönlicher und immersiver.</strong> Von Dark Mode über 3D-Elemente
+            bis zu adaptiven Interfaces — diese Trends prägen das visuelle Design im kommenden Jahr.</p>
+
+        <h2>Die 7 wichtigsten Design-Trends</h2>
+
+        <div class="trend-card">
+            <div class="trend-card-header">
+                <span class="trend-card-icon">🌙</span>
+                <h3 class="trend-card-title">Dark Mode als Standard</h3>
+            </div>
+            <p>Dark Mode ist nicht mehr optional — er wird erwartet. 2025 sehen wir mehr Websites, die Dark-First
+                designt werden. Dunkle Interfaces reduzieren Augenbelastung, sparen Akkuleistung und wirken modern und
+                premium.</p>
+        </div>
+
+        <div class="example-box">
+            <strong>PIXELLA Beispiel:</strong> Diese Website ist Dark-First. Die Living Website Technologie passt sogar
+            die Farbintensität an Ihr Verhalten an.
+        </div>
+
+        <div class="trend-card">
+            <div class="trend-card-header">
+                <span class="trend-card-icon">✨</span>
+                <h3 class="trend-card-title">Micro-Interactions überall</h3>
+            </div>
+            <p>Kleine Animationen bei Hover, Klick und Scroll machen Websites lebendig. Button-Feedback, Cursor-Effekte,
+                Loading-Animationen — Details, die das Erlebnis aufwerten.</p>
+        </div>
+
+        <div class="trend-card">
+            <div class="trend-card-header">
+                <span class="trend-card-icon">🧊</span>
+                <h3 class="trend-card-title">Glassmorphism & Blur-Effekte</h3>
+            </div>
+            <p>Frosted Glass Effekte mit backdrop-filter: blur() bleiben beliebt. Sie schaffen Tiefe ohne Schatten und
+                wirken clean und modern. Besonders für Navigation und Overlays.</p>
+        </div>
+
+        <div class="trend-card">
+            <div class="trend-card-header">
+                <span class="trend-card-icon">📦</span>
+                <h3 class="trend-card-title">Bento Box Layouts</h3>
+            </div>
+            <p>Inspiriert von Apple's Interface-Design: Asymmetrische Grids mit unterschiedlich großen Karten. Visuell
+                interessanter als klassische Raster, aber trotzdem geordnet.</p>
+        </div>
+
+        <div class="trend-card">
+            <div class="trend-card-header">
+                <span class="trend-card-icon">🌈</span>
+                <h3 class="trend-card-title">Gradient Meshes & Aurora-Effekte</h3>
+            </div>
+            <p>Komplexe, fließende Farbverläufe ersetzen flache Hintergründe. Aurora Borealis-inspirierte Effekte
+                schaffen Atmosphäre ohne abzulenken.</p>
+        </div>
+
+        <div class="trend-card">
+            <div class="trend-card-header">
+                <span class="trend-card-icon">🔤</span>
+                <h3 class="trend-card-title">Variable Fonts & Kinetic Typography</h3>
+            </div>
+            <p>Schriften, die sich bewegen, morphen und auf Interaktion reagieren. Variable Fonts ermöglichen smooth
+                Übergänge zwischen Schriftstärken.</p>
+        </div>
+
+        <div class="trend-card">
+            <div class="trend-card-header">
+                <span class="trend-card-icon">🧬</span>
+                <h3 class="trend-card-title">Adaptive & Personalisierte UIs</h3>
+            </div>
+            <p>Der größte Trend: Interfaces, die sich an den Nutzer anpassen. Nicht nur responsive für Geräte, sondern
+                adaptiv für Verhalten. Living Websites führen diesen Trend an.</p>
+        </div>
+
+        <h2>Was diese Trends gemeinsam haben</h2>
+
+        <p>Alle Trends 2025 zielen auf das gleiche Ziel: <strong>Menschlichere digitale Erlebnisse</strong>. Websites
+            sollen sich weniger wie statische Dokumente anfühlen und mehr wie lebendige Räume.</p>
+
+        <ul>
+            <li>Mehr Bewegung, aber subtil und zweckmäßig</li>
+            <li>Mehr Tiefe durch Layering und Effekte</li>
+            <li>Mehr Persönlichkeit durch einzigartige Details</li>
+            <li>Mehr Anpassung an den individuellen Nutzer</li>
+        </ul>
+
+        <h2>Was Sie vermeiden sollten</h2>
+
+        <p>Nicht jeder Trend ist für jedes Projekt geeignet:</p>
+
+        <ul>
+            <li><strong>Übertriebene Animationen</strong> — Wenn alles animiert ist, ist nichts besonders</li>
+            <li><strong>Performance ignorieren</strong> — Schöne Effekte, die die Seite verlangsamen</li>
+            <li><strong>Trends blind folgen</strong> — Ihr Brand muss zur Ästhetik passen</li>
+            <li><strong>Accessibility vergessen</strong> — Dark Mode braucht ausreichend Kontrast</li>
+        </ul>
+
+        <div class="article-cta">
+            <h3>Bereit für ein modernes Redesign?</h3>
+            <p>Wir setzen die neuesten Trends mit Living Website Technologie um.</p>
+            <a href="index.html#contact" class="btn">Projekt besprechen →</a>
+        </div>
+    </article>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <p class="footer-text">© 2025 PIXELLA. Created by Chris Conen & Claude AI</p>
+            <div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a
+                    href="agb.html">AGB</a></div>
+        </div>
+    </footer>
+
+    <script src="intent-engine.js" defer></script>
+
+</body>
+
+</html>

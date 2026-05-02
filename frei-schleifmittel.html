@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Frei Schleifmittel — Konzept-Demo · Unternehmenspräsentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   FREI SCHLEIFMITTEL — KONZEPT-DEMO
+   PIXELLA · 2026
+   Editorial Refined Industrial
+   ============================================================ */
+
+:root {
+  --bg:        #F6F1E8;   /* warm cream paper */
+  --bg-alt:    #EFE9DC;   /* slightly darker cream */
+  --ink:       #0E1116;   /* almost-black ink */
+  --ink-soft:  #1F2530;
+  --accent:    #B85C38;   /* burnt copper */
+  --accent-deep: #7A3818;
+  --muted:     #6F665A;   /* warm stone */
+  --line:      #D8CFBE;   /* paper line */
+  --line-soft: #E7DFCE;
+
+  --display: 'Fraunces', 'Times New Roman', serif;
+  --body:    'Hanken Grotesk', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  --w-narrow: 56rem;
+  --w-wide:   78rem;
+  --pad:      clamp(1.25rem, 4vw, 3rem);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  font-feature-settings: "ss01", "kern";
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   GRAIN TEXTURE OVERLAY
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+/* ============================================================
+   TOP META BAR
+   ============================================================ */
+.meta-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem var(--pad);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: linear-gradient(to bottom, var(--bg) 70%, rgba(246,241,232,0));
+  pointer-events: none;
+}
+.meta-bar .left,
+.meta-bar .right {
+  display: flex;
+  gap: 1.5rem;
+  pointer-events: auto;
+}
+.meta-bar .dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+/* ============================================================
+   SLIDE BASE
+   ============================================================ */
+section.slide {
+  min-height: 100vh;
+  padding: clamp(5rem, 9vw, 8rem) var(--pad) clamp(4rem, 7vw, 6rem);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--line);
+}
+
+section.slide.tight {
+  min-height: auto;
+  padding: clamp(4rem, 7vw, 6rem) var(--pad);
+}
+
+/* slide number marker */
+.slide-marker {
+  position: absolute;
+  top: clamp(3.5rem, 6vw, 5rem);
+  left: var(--pad);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.slide-marker .num {
+  color: var(--accent);
+  font-weight: 600;
+}
+.slide-marker .line {
+  display: inline-block;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ============================================================
+   TYPOGRAPHY — DISPLAY
+   ============================================================ */
+.display-xl {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-weight: 350;
+  font-size: clamp(2.75rem, 8vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.display-xl .em {
+  font-style: italic;
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--accent);
+}
+.display-l {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-weight: 380;
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.display-l .em {
+  font-style: italic;
+  font-weight: 320;
+  color: var(--accent);
+}
+.display-m {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 420;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.display-s {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 24;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+.eyebrow.muted {
+  color: var(--muted);
+}
+
+.lede {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 24;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 38em;
+}
+
+p.body {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 32em;
+}
+p.body.muted {
+  color: var(--muted);
+}
+p.small {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 30em;
+}
+
+.mono-tag {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: var(--w-wide);
+  margin: 0 auto;
+}
+.container.narrow {
+  max-width: var(--w-narrow);
+}
+
+.stack > * + * { margin-top: 1.25rem; }
+.stack-l > * + * { margin-top: 2rem; }
+.stack-xl > * + * { margin-top: 3rem; }
+
+.row { display: flex; gap: clamp(1.5rem, 3vw, 3rem); flex-wrap: wrap; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 880px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; gap: 2.5rem; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-5 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================================
+   ANIMATION — fade up on scroll (progressive enhancement)
+   ============================================================ */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1.1s cubic-bezier(0.2,0.8,0.2,1),
+              transform 1.1s cubic-bezier(0.2,0.8,0.2,1);
+  transition-delay: var(--delay, 0ms);
+}
+.js-reveal .reveal:not(.in) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+/* ============================================================
+   SLIDE — HERO
+   ============================================================ */
+.hero {
+  padding-top: clamp(7rem, 14vw, 12rem);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(246, 241, 232, 0.82) 0%,
+      rgba(246, 241, 232, 0.62) 45%,
+      rgba(246, 241, 232, 0.9) 100%
+    ),
+    url("img/frei-schleifmittel-bg.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hero .display-xl {
+  max-width: 14ch;
+}
+.hero .lede {
+  max-width: 36em;
+  margin-top: 2rem;
+}
+.hero .signature {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding-top: 1.5rem;
+  max-width: 36rem;
+}
+.hero .signature .label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero .signature .name {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--ink);
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.scroll-cue::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 32px;
+  background: var(--accent);
+  animation: pulse 2.5s cubic-bezier(0.4,0,0.6,1) infinite;
+  transform-origin: top;
+}
+@keyframes pulse {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+  50%      { transform: scaleY(1);   opacity: 1; }
+}
+
+/* ============================================================
+   SLIDE — PROBLEM (large number)
+   ============================================================ */
+.problem .number-display {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 144;
+  font-weight: 280;
+  font-size: clamp(7rem, 22vw, 19rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+  display: block;
+}
+.problem .number-display .unit {
+  font-size: 0.3em;
+  font-weight: 400;
+  color: var(--ink);
+  vertical-align: super;
+  margin-left: 0.15em;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   SLIDE — FRANZ PORTRAIT
+   ============================================================ */
+.franz {
+  background: var(--bg-alt);
+}
+.franz .grid-2 {
+  align-items: center;
+}
+.portrait-frame {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, #2A2520 0%, #1A1612 100%);
+  position: relative;
+  overflow: hidden;
+}
+.portrait-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(184,92,56,0.35) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(20,30,50,0.5) 0%, transparent 50%);
+}
+.portrait-frame::after {
+  content: '[ Portrait Franz Reischer ]';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(246,241,232,0.5);
+}
+.portrait-frame .frame-label {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(246,241,232,0.6);
+  z-index: 2;
+}
+
+.credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  margin-top: 1.5rem;
+}
+.credentials .cred {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.credentials .cred .label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  min-width: 5.5rem;
+  flex-shrink: 0;
+}
+.credentials .cred .value {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.pull-quote {
+  font-family: var(--display);
+  font-style: italic;
+  font-variation-settings: "opsz" 72, "SOFT" 100;
+  font-weight: 320;
+  font-size: clamp(1.5rem, 2.8vw, 2.125rem);
+  line-height: 1.25;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1.75rem;
+  margin: 2rem 0;
+  max-width: 28em;
+}
+.pull-quote .attr {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ============================================================
+   SLIDE — TWO WORLDS
+   ============================================================ */
+.two-worlds {
+  background: var(--ink);
+  color: var(--bg);
+  border-bottom-color: var(--ink);
+}
+.two-worlds .display-l { color: var(--bg); }
+.two-worlds .lede { color: rgba(246,241,232,0.7); }
+.two-worlds .eyebrow.muted { color: rgba(246,241,232,0.5); }
+.two-worlds p.body { color: rgba(246,241,232,0.7); }
+.two-worlds .slide-marker { color: rgba(246,241,232,0.5); }
+.two-worlds .slide-marker .num { color: var(--accent); }
+.two-worlds .slide-marker .line { background: rgba(246,241,232,0.2); }
+
+.two-worlds .worlds-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+.two-worlds .worlds-grid .world {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(246,241,232,0.2);
+}
+.two-worlds .worlds-grid .pivot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-variation-settings: "opsz" 144;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  writing-mode: horizontal-tb;
+  text-align: center;
+  white-space: nowrap;
+}
+@media (max-width: 880px) {
+  .two-worlds .worlds-grid {
+    grid-template-columns: 1fr;
+  }
+  .two-worlds .worlds-grid .pivot {
+    padding: 1rem 0;
+  }
+}
+
+.world-tag {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.world-title {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 380;
+  font-size: clamp(1.625rem, 2.6vw, 2rem);
+  line-height: 1.1;
+  color: var(--bg);
+}
+.world-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(246,241,232,0.15);
+}
+.world-list li {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: rgba(246,241,232,0.75);
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+.world-list li::before {
+  content: '—';
+  color: var(--accent);
+}
+
+/* ============================================================
+   SLIDE — MARKEN
+   ============================================================ */
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  background: var(--line);
+  margin-top: 3rem;
+}
+.brand-cell {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 11rem;
+  transition: background 0.4s ease;
+}
+.brand-cell:hover {
+  background: var(--bg-alt);
+}
+.brand-cell .brand-name {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.375rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.brand-cell .brand-tagline {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.brand-cell .brand-tag {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: auto;
+}
+@media (max-width: 880px) {
+  .brand-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================================
+   SLIDE — UNTERSCHIED
+   ============================================================ */
+.diff-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.diff-card .diff-num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 600;
+}
+.diff-card .diff-title {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 36;
+  font-weight: 450;
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  line-height: 1.2;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin-bottom: 0.25rem;
+}
+.diff-card .diff-text {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ============================================================
+   SLIDE — KUNDEN
+   ============================================================ */
+.audience-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 3rem;
+}
+.audience-row {
+  display: grid;
+  grid-template-columns: auto 1fr 2fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--line);
+  align-items: center;
+}
+.audience-row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.audience-row .num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  min-width: 2rem;
+}
+.audience-row .who {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 36;
+  font-weight: 460;
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+.audience-row .desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 3.5vw, 2.5rem);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  min-width: 0;
+}
+.audience-row .desc-copy {
+  flex: 1;
+  min-width: 0;
+}
+.audience-row .desc-photo {
+  flex-shrink: 0;
+  width: clamp(132px, 22vw, 210px);
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid var(--line-soft);
+}
+@media (max-width: 880px) {
+  .audience-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .audience-row .desc {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .audience-row .desc-photo {
+    width: clamp(160px, 55vw, 260px);
+    align-self: flex-end;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ============================================================
+   SLIDE — STEPS
+   ============================================================ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 4vw, 3rem);
+  margin-top: 3.5rem;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  padding-top: 2rem;
+  border-top: 2px solid var(--accent);
+}
+.step .step-num {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 144;
+  font-weight: 280;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.9;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.step .step-label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.step .step-title {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 36;
+  font-weight: 450;
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+.step .step-text {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+@media (max-width: 880px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SLIDE — DEMO DISCLAIMER
+   ============================================================ */
+.disclaimer {
+  background: var(--bg-alt);
+}
+.disclaimer-card {
+  border: 1px solid var(--line);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  background: var(--bg);
+  position: relative;
+}
+.disclaimer-card::before {
+  content: 'DEMO';
+  position: absolute;
+  top: -1px;
+  right: 1.75rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  padding: 0.5rem 0.875rem;
+}
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.checklist .item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.checklist .item .marker {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  min-width: 5rem;
+}
+.checklist .item.todo .marker {
+  color: var(--muted);
+}
+.checklist .item.todo {
+  color: var(--muted);
+}
+
+/* ============================================================
+   SLIDE — CTA
+   ============================================================ */
+.cta {
+  background: var(--ink);
+  color: var(--bg);
+  border-bottom-color: var(--ink);
+}
+.cta .display-xl {
+  color: var(--bg);
+}
+.cta .display-xl .em {
+  color: var(--accent);
+}
+.cta .lede {
+  color: rgba(246,241,232,0.7);
+}
+.cta .slide-marker {
+  color: rgba(246,241,232,0.5);
+}
+.cta .slide-marker .num { color: var(--accent); }
+.cta .slide-marker .line { background: rgba(246,241,232,0.2); }
+.cta .contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(246,241,232,0.2);
+}
+.cta .contact-cell .label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(246,241,232,0.5);
+  display: block;
+  margin-bottom: 0.625rem;
+}
+.cta .contact-cell .value {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 36;
+  font-weight: 450;
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  color: var(--bg);
+  letter-spacing: -0.005em;
+}
+.cta .contact-cell .value a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(246,241,232,0.3);
+  transition: border-color 0.3s ease;
+}
+.cta .contact-cell .value a:hover {
+  border-bottom-color: var(--accent);
+}
+@media (max-width: 880px) {
+  .cta .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  padding: 4rem var(--pad) 3rem;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+footer .footer-grid {
+  max-width: var(--w-wide);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: end;
+}
+footer .agency-mark {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 500;
+  font-size: 1.625rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+footer .agency-mark .by {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+footer .meta {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  line-height: 1.7;
+  text-align: right;
+}
+@media (max-width: 880px) {
+  footer .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  footer .meta { text-align: left; }
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.divider {
+  height: 1px;
+  background: var(--line);
+  border: none;
+  margin: clamp(2rem, 4vw, 3rem) 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* prevent layout shift before fonts load */
+.font-fallback-display {
+  font-family: 'Times New Roman', serif;
+  letter-spacing: -0.04em;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP META BAR -->
+<div class="meta-bar">
+  <div class="left">
+    <span><span class="dot"></span>Demo · v0.1</span>
+  </div>
+  <div class="right">
+    <span>Frei Schleifmittel × PIXELLA</span>
+    <span>02.05.2026</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     SLIDE 1 — HERO
+     ============================================================ -->
+<section class="slide hero" id="hero">
+  <div class="slide-marker">
+    <span class="num">01</span>
+    <span class="line"></span>
+    <span>Auftakt</span>
+  </div>
+  <div class="container narrow stack-l">
+    <span class="eyebrow reveal">Frei Schleifmittel GmbH · Burgenland · seit Jahrzehnten</span>
+    <h1 class="display-xl reveal" style="--delay: 100ms;">
+      Im Mikron entscheidet<br>
+      das <span class="em">Handwerk</span>.
+    </h1>
+    <p class="lede reveal" style="--delay: 250ms;">
+      Wir liefern österreichischen Profis Schleifmittel und Lacktechnik der höchsten Klasse —
+      und zwar mit der Beratung, die zwischen ordentlicher Arbeit und exzellenter Arbeit den Unterschied macht.
+    </p>
+    <div class="signature reveal" style="--delay: 400ms;">
+      <span class="label">Im Auftrag</span>
+      <span class="name">Franz Reischer</span>
+      <span class="label">Geschäftsführer · Regattagewinner</span>
+    </div>
+  </div>
+  <div class="scroll-cue">Lesen</div>
+</section>
+
+<!-- ============================================================
+     SLIDE 2 — DAS PROBLEM (large number)
+     ============================================================ -->
+<section class="slide problem" id="problem">
+  <div class="slide-marker">
+    <span class="num">02</span>
+    <span class="line"></span>
+    <span>Worum es geht</span>
+  </div>
+  <div class="container">
+    <div class="grid-2" style="align-items: center;">
+      <div class="stack-l reveal">
+        <span class="eyebrow muted">Der Unterschied</span>
+        <h2 class="display-l">
+          Zwischen einem guten Lackierer und einem <span class="em">hervorragenden</span>
+          liegen oft nur…
+        </h2>
+      </div>
+      <div class="reveal" style="--delay: 200ms; text-align: right;">
+        <span class="number-display">
+          0,01<span class="unit">mm</span>
+        </span>
+        <p class="body muted" style="margin-top: 1.5rem; margin-left: auto;">
+          …und das Material, mit dem er arbeitet. Ein falsch gewähltes Schleifmittel
+          kostet Stunden. Ein richtig gewähltes spart Tage.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 3 — WER WIR SIND
+     ============================================================ -->
+<section class="slide" id="who">
+  <div class="slide-marker">
+    <span class="num">03</span>
+    <span class="line"></span>
+    <span>Wer wir sind</span>
+  </div>
+  <div class="container narrow stack-l">
+    <span class="eyebrow reveal">Frei Schleifmittel GmbH</span>
+    <h2 class="display-l reveal" style="--delay: 100ms;">
+      Ein Fachhandel, der nicht nur <span class="em">verkauft</span> — sondern <span class="em">versteht</span>.
+    </h2>
+    <p class="lede reveal" style="--delay: 200ms;">
+      Mit Sitz in Rohrbach bei Mattersburg führen wir die Premium-Marken der internationalen
+      Schleifmittel- und Lacktechnik. Aber das ist nur die halbe Miete: Was wir
+      mitliefern, ist Praxiswissen.
+    </p>
+    <div class="reveal" style="--delay: 350ms; padding-top: 2.5rem; border-top: 1px solid var(--line); margin-top: 1rem;">
+      <p class="mono-tag" style="margin-bottom: 1rem;">Was uns trägt</p>
+      <div class="grid-3" style="gap: 2rem;">
+        <div>
+          <p class="display-s">Fachberatung</p>
+          <p class="small" style="margin-top: 0.5rem;">Vor Ort, am Telefon, im Werkstattgespräch.</p>
+        </div>
+        <div>
+          <p class="display-s">Prompte Lieferung</p>
+          <p class="small" style="margin-top: 0.5rem;">In ganz Österreich, ohne Umwege.</p>
+        </div>
+        <div>
+          <p class="display-s">Tiefe Marken-Auswahl</p>
+          <p class="small" style="margin-top: 0.5rem;">KOVAX, MIRKA, DYNABRADE, RUPES, OnSystem.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 4 — DER MENSCH (FRANZ)
+     ============================================================ -->
+<section class="slide franz" id="franz">
+  <div class="slide-marker">
+    <span class="num">04</span>
+    <span class="line"></span>
+    <span>Der Mensch</span>
+  </div>
+  <div class="container">
+    <div class="grid-2">
+      <div class="reveal">
+        <div class="portrait-frame">
+          <span class="frame-label">Platzhalter — finales Bild folgt</span>
+        </div>
+      </div>
+      <div class="stack-l reveal" style="--delay: 200ms;">
+        <span class="eyebrow">Wer hinter den Marken steht</span>
+        <h2 class="display-l">
+          <span class="em">Franz Reischer</span>
+        </h2>
+        <p class="body">
+          Franz führt die Frei Schleifmittel GmbH seit ihrer Gründung. Aber wer ihn nur
+          als Geschäftsführer eines Handelsbetriebes sieht, übersieht das Wesentliche.
+        </p>
+        <p class="body">
+          Er ist Regattagewinner, ISSA-zertifizierter Skipper-Trainer und betreibt
+          parallel eine eigene Segelschule in Kroatien. Zehn Jahre Ausbildungserfahrung
+          auf dem Wasser — und das ist nicht nebenher: das ist seine zweite Schule der Präzision.
+        </p>
+
+        <div class="credentials">
+          <div class="cred">
+            <span class="label">Position</span>
+            <span class="value">Geschäftsführer Frei Schleifmittel GmbH</span>
+          </div>
+          <div class="cred">
+            <span class="label">Sport</span>
+            <span class="value">Regatta-Sieger · ISSA-Skipper-Trainer</span>
+          </div>
+          <div class="cred">
+            <span class="label">Praxis</span>
+            <span class="value">10+ Jahre Skipper- und Segelausbildung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="pull-quote reveal" style="--delay: 300ms; margin-top: clamp(3rem, 6vw, 5rem);">
+      Im Mikron entscheidet sich, ob die Lackierung perfekt wird. In der Regatta entscheiden Sekunden über Sieg und Niederlage. Beides verlangt das Gleiche: Präzision als Haltung.
+      <span class="attr">— Franz Reischer · Demo-Zitat, finale Formulierung folgt</span>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 5 — ZWEI WELTEN
+     ============================================================ -->
+<section class="slide two-worlds" id="worlds">
+  <div class="slide-marker">
+    <span class="num">05</span>
+    <span class="line"></span>
+    <span>Zwei Welten</span>
+  </div>
+  <div class="container">
+    <div class="stack-l reveal" style="max-width: 42rem;">
+      <span class="eyebrow muted">Das verbindende Prinzip</span>
+      <h2 class="display-l">
+        Zwei Welten,<br>
+        ein <span class="em">Prinzip</span>.
+      </h2>
+      <p class="lede" style="color: rgba(246,241,232,0.75);">
+        Was Franz auf dem Wasser zum Sieger macht, ist exakt das, was er beim Materialeinkauf
+        seiner Kunden voraussetzt. Detailgenauigkeit, Materialgefühl, Vorbereitung.
+      </p>
+    </div>
+
+    <div class="worlds-grid reveal" style="--delay: 200ms;">
+      <div class="world">
+        <span class="world-tag">Welt 01 — An Land</span>
+        <h3 class="world-title">Schleifmittel & Lacktechnik</h3>
+        <ul class="world-list">
+          <li>KOVAX — japanische Präzisionsschleifmittel</li>
+          <li>MIRKA — Pionier in staubfreien Systemen</li>
+          <li>DYNABRADE — pneumatische Werkzeuge</li>
+          <li>RUPES — Polier- und Schleiftechnologie</li>
+          <li>OnSystem — Industrieanwendungen</li>
+        </ul>
+      </div>
+
+      <div class="pivot">Präzision</div>
+
+      <div class="world">
+        <span class="world-tag">Welt 02 — Auf See</span>
+        <h3 class="world-title">Skipperausbildung Kroatien</h3>
+        <ul class="world-list">
+          <li>ISSA Inshore Skipper · Offshore Skipper</li>
+          <li>FB1 — FB4 Segelscheine</li>
+          <li>Skippertraining für Charterskipper</li>
+          <li>Kroatisches Küstenpatent</li>
+          <li>Standort: Primošten · Saison April–Oktober</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 6 — MARKEN
+     ============================================================ -->
+<section class="slide" id="brands">
+  <div class="slide-marker">
+    <span class="num">06</span>
+    <span class="line"></span>
+    <span>Unsere Marken</span>
+  </div>
+  <div class="container">
+    <div class="stack-l reveal" style="max-width: 42rem;">
+      <span class="eyebrow">Premium-Portfolio</span>
+      <h2 class="display-l">
+        Die Marken, denen Profis vertrauen — gebündelt unter <span class="em">einem Dach</span>.
+      </h2>
+    </div>
+
+    <div class="brand-grid reveal" style="--delay: 200ms;">
+      <div class="brand-cell">
+        <img src="img/kovax.jpeg" alt="KOVAX" class="brand-logo">
+        <span class="brand-name">KOVAX</span>
+        <span class="brand-tagline">Japanische Schleifmittel-Präzision für Lackierer und Karosseriebau.</span>
+        <span class="brand-tag">Japan</span>
+      </div>
+      <div class="brand-cell">
+        <img src="img/mirka.jpg" alt="MIRKA" class="brand-logo">
+        <span class="brand-name">MIRKA</span>
+        <span class="brand-tagline">Staubfreie Schleifsysteme — finnische Innovation seit 1943.</span>
+        <span class="brand-tag">Finnland</span>
+      </div>
+      <div class="brand-cell">
+        <img src="img/dynabrade.jpg" alt="DYNABRADE" class="brand-logo">
+        <span class="brand-name">DYNABRADE</span>
+        <span class="brand-tagline">Hochleistungs-Druckluftwerkzeuge für industrielle Anwendung.</span>
+        <span class="brand-tag">USA</span>
+      </div>
+      <div class="brand-cell">
+        <img src="img/rupes.png" alt="RUPES" class="brand-logo">
+        <span class="brand-name">RUPES</span>
+        <span class="brand-tagline">Polier- und Schleiftechnologie auf Werkzeugmacher-Niveau.</span>
+        <span class="brand-tag">Italien</span>
+      </div>
+      <div class="brand-cell">
+        <img src="img/onsystem.jpg" alt="OnSystem" class="brand-logo">
+        <span class="brand-name">OnSystem</span>
+        <span class="brand-tagline">Spezial-Schleiflösungen für Industrieumgebungen.</span>
+        <span class="brand-tag">Industrie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 7 — WAS UNS UNTERSCHEIDET
+     ============================================================ -->
+<section class="slide" id="diff">
+  <div class="slide-marker">
+    <span class="num">07</span>
+    <span class="line"></span>
+    <span>Was uns unterscheidet</span>
+  </div>
+  <div class="container">
+    <div class="stack-l reveal" style="max-width: 42rem;">
+      <span class="eyebrow">Unsere drei Kernversprechen</span>
+      <h2 class="display-l">
+        Drei Dinge, die der Großhändler von der Stange <span class="em">nicht liefert</span>.
+      </h2>
+    </div>
+
+    <div class="grid-3 reveal" style="--delay: 200ms; margin-top: 4rem;">
+      <div class="diff-card">
+        <span class="diff-num">01</span>
+        <h3 class="diff-title">Beratung statt Katalog</h3>
+        <p class="diff-text">
+          Wir kennen die Materialien, die wir verkaufen, weil wir wissen, wo sie eingesetzt werden.
+          Anrufen, fragen, Antwort bekommen — keine Schleife durch ein Callcenter.
+        </p>
+      </div>
+      <div class="diff-card">
+        <span class="diff-num">02</span>
+        <h3 class="diff-title">Lieferung in ganz Österreich</h3>
+        <p class="diff-text">
+          Burgenland, Wien, Niederösterreich, Steiermark und darüber hinaus.
+          Was am Vormittag bestellt wird, ist meistens am nächsten Werktag in eurer Werkstatt.
+        </p>
+      </div>
+      <div class="diff-card">
+        <span class="diff-num">03</span>
+        <h3 class="diff-title">Praxis, nicht Theorie</h3>
+        <p class="diff-text">
+          Franz Reischer ist Regattaskipper und ISSA-Trainer. Wer in der Praxis lehrt,
+          versteht, was Praktiker brauchen — auch wenn das Material nicht aufs Wasser geht.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 8 — FÜR WEN
+     ============================================================ -->
+<section class="slide" id="audience">
+  <div class="slide-marker">
+    <span class="num">08</span>
+    <span class="line"></span>
+    <span>Für wen wir arbeiten</span>
+  </div>
+  <div class="container narrow">
+    <div class="stack-l reveal">
+      <span class="eyebrow">Unsere Zielkunden</span>
+      <h2 class="display-l">
+        Wir arbeiten für Betriebe, die <span class="em">keine Kompromisse</span> beim Material machen.
+      </h2>
+    </div>
+
+    <div class="audience-list reveal" style="--delay: 200ms;">
+      <div class="audience-row">
+        <span class="num">A.01</span>
+        <span class="who">Karosseriebau & Lackierereien</span>
+        <div class="desc">
+          <p class="desc-copy">
+            Die größte Kundengruppe. Vom Einzelbetrieb bis zur Filiale eines markengebundenen
+            Reparaturnetzwerks. Wir wissen, was eure Lacksysteme verlangen.
+          </p>
+          <img class="desc-photo" src="img/karosseriebau.png" alt="Karosseriebau und Lackierung" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="audience-row">
+        <span class="num">A.02</span>
+        <span class="who">Industrielle Lackieranwender</span>
+        <div class="desc">
+          <p class="desc-copy">
+            Möbelindustrie, Komponentenhersteller, Beschichtungsbetriebe. Wo Großserien gefahren werden,
+            zählt Standfestigkeit des Schleifmittels — und genau die liefern unsere Marken.
+          </p>
+          <img class="desc-photo" src="img/industrielle-lackierung.png" alt="Industrielle Lackierung" width="420" height="315" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="audience-row">
+        <span class="num">A.03</span>
+        <span class="who">Bootswerften & Marina-Betriebe</span>
+        <div class="desc">
+          <p class="desc-copy">
+            Spezialgebiet — und einer, in dem Franz aus eigener Erfahrung weiß, was am
+            Boot wirklich gebraucht wird. Antifouling-Vorbereitung bis Yacht-Lackierung.
+          </p>
+          <img class="desc-photo" src="img/bootswerft-marina.png" alt="Bootswerft und Marina" width="420" height="315" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="audience-row">
+        <span class="num">A.04</span>
+        <span class="who">Spezialbetriebe & Restaurierung</span>
+        <div class="desc">
+          <p class="desc-copy">
+            Oldtimer-Werkstätten, Möbelrestaurierung, Spezialhandwerk. Hier zählt nicht
+            Volumen, sondern Materialkenntnis. Genau dort sind wir stark.
+          </p>
+          <img class="desc-photo" src="img/restaurierung-spezial.png" alt="Restaurierung und Spezialbetrieb" width="420" height="315" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 9 — WIE EIN ERSTKONTAKT AUSSIEHT
+     ============================================================ -->
+<section class="slide" id="steps">
+  <div class="slide-marker">
+    <span class="num">09</span>
+    <span class="line"></span>
+    <span>Wie wir miteinander beginnen</span>
+  </div>
+  <div class="container">
+    <div class="stack-l reveal" style="max-width: 42rem;">
+      <span class="eyebrow">Unser Erstkontakt-Prozess</span>
+      <h2 class="display-l">
+        Ohne Druck. Ohne Verkaufsmasche. <span class="em">Drei Schritte.</span>
+      </h2>
+      <p class="lede">
+        Wir glauben nicht an Aufdringlichkeit. Wer mit uns ins Geschäft kommt,
+        tut das, weil wir nützlich sind. So sieht ein Erstkontakt aus.
+      </p>
+    </div>
+
+    <div class="steps-grid reveal" style="--delay: 200ms;">
+      <div class="step">
+        <span class="step-num">01</span>
+        <span class="step-label">Schritt eins</span>
+        <h3 class="step-title">15-Minuten-Gespräch</h3>
+        <p class="step-text">
+          Telefonisch oder vor Ort. Ihr erzählt, womit ihr arbeitet und wo es klemmt.
+          Wir hören zu und sagen, ob wir helfen können — ehrlich, auch wenn die Antwort manchmal "Nein" ist.
+        </p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <span class="step-label">Schritt zwei</span>
+        <h3 class="step-title">Mustersendung oder Vor-Ort-Termin</h3>
+        <p class="step-text">
+          Ihr testet ein konkretes Produkt unter euren Bedingungen. Bei größeren Betrieben
+          kommt Franz oder ein Mitarbeiter persönlich vorbei. Kostenlos.
+        </p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span class="step-label">Schritt drei</span>
+        <h3 class="step-title">Beratung & erste Bestellung</h3>
+        <p class="step-text">
+          Wenn das Material passt, machen wir die Konditionen klar und liefern. Ab dann
+          gibt es uns als Ansprechpartner — ohne Wartezeiten, ohne Hotlines.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 10 — DEMO DISCLAIMER
+     ============================================================ -->
+<section class="slide tight disclaimer" id="disclaimer">
+  <div class="slide-marker">
+    <span class="num">10</span>
+    <span class="line"></span>
+    <span>Was hier gezeigt wurde</span>
+  </div>
+  <div class="container narrow">
+    <div class="disclaimer-card reveal">
+      <span class="eyebrow muted">Hinweis zur Demo-Version</span>
+      <h2 class="display-m" style="margin-top: 0.5rem;">
+        Was du bis hier gesehen hast, ist ein Konzept — kein fertiges Produkt.
+      </h2>
+      <p class="body" style="margin-top: 1.5rem;">
+        Diese Präsentation ist als Demo entworfen, basierend auf öffentlich
+        recherchierbaren Informationen über Frei Schleifmittel und Frei Segeln.
+        Sie zeigt, wie die finale Unternehmenspräsentation aufgebaut sein könnte
+        — visuell, sprachlich und narrativ.
+      </p>
+
+      <div class="checklist">
+        <div class="item">
+          <span class="marker">Erledigt</span>
+          <span>Visuelles System: Typografie, Farbwelt, Layout, Bildsprache</span>
+        </div>
+        <div class="item">
+          <span class="marker">Erledigt</span>
+          <span>Narrative Struktur: zwölf Slides, dramaturgischer Aufbau</span>
+        </div>
+        <div class="item">
+          <span class="marker">Erledigt</span>
+          <span>Hypothese „Präzision als Philosophie" — gestützt durch Franz' Profil</span>
+        </div>
+        <div class="item todo">
+          <span class="marker">Offen</span>
+          <span>Echte Zahlen: Mitarbeiter, Kunden, Liefergebiete, Gründungsjahr</span>
+        </div>
+        <div class="item todo">
+          <span class="marker">Offen</span>
+          <span>Authentische Fotos: Franz, Team, Lager, Werkstatt, Anwendungen</span>
+        </div>
+        <div class="item todo">
+          <span class="marker">Offen</span>
+          <span>O-Töne und persönliche Geschichten von Franz</span>
+        </div>
+        <div class="item todo">
+          <span class="marker">Offen</span>
+          <span>Referenzkunden, konkrete Erfolgsgeschichten</span>
+        </div>
+        <div class="item todo">
+          <span class="marker">Offen</span>
+          <span>Englische Sprachversion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 11 — CTA
+     ============================================================ -->
+<section class="slide cta" id="cta">
+  <div class="slide-marker">
+    <span class="num">11</span>
+    <span class="line"></span>
+    <span>Nächster Schritt</span>
+  </div>
+  <div class="container narrow">
+    <div class="stack-l reveal">
+      <span class="eyebrow">Was als Nächstes passiert</span>
+      <h2 class="display-xl">
+        Briefing zurück.<br>
+        Dann bauen wir die <span class="em">echte</span> Version.
+      </h2>
+      <p class="lede">
+        Mit dem ausgefüllten Briefing-Dokument und eurem Bildmaterial entsteht in
+        zwei bis drei Wochen die finale Präsentation — auf Deutsch und Englisch,
+        als Premium-PDF und als interaktive Web-Version.
+      </p>
+    </div>
+
+    <div class="contact-grid reveal" style="--delay: 200ms;">
+      <div class="contact-cell">
+        <span class="label">Hauptkontakt</span>
+        <span class="value">Andrea Gruber</span>
+      </div>
+      <div class="contact-cell">
+        <span class="label">Geschäftsführer</span>
+        <span class="value">Franz Reischer</span>
+      </div>
+      <div class="contact-cell">
+        <span class="label">Projekt-Lead</span>
+        <span class="value"><a href="mailto:chris@pixella.at">Chris Conen · PIXELLA</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="agency-mark">
+        <span class="by">Konzept · Design · Build</span>
+        PIXELLA
+      </span>
+    </div>
+    <div class="meta">
+      <div>Demo-Präsentation · v0.1</div>
+      <div>02.05.2026 · Wien & Burgenland</div>
+      <div style="margin-top: 0.75rem; color: var(--accent);">chris@pixella.at · pixella.at</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPT — Intersection Observer for reveal animations
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // Progressive enhancement: only hide & animate if IntersectionObserver is supported
+  if (!('IntersectionObserver' in window)) {
+    return;
+  }
+
+  // Tag document so CSS can apply hidden state
+  document.documentElement.classList.add('js-reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -10% 0px'
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  revealEls.forEach(el => observer.observe(el));
+
+  // Safety fallback: if anything is still hidden after 4 seconds
+  // (e.g. headless rendering, print contexts), reveal it.
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in'));
+  }, 4000);
+
+  // Keyboard navigation between sections
+  const sections = Array.from(document.querySelectorAll('section.slide'));
+  let currentIndex = 0;
+
+  function getCurrentSection() {
+    const scrollPos = window.scrollY + window.innerHeight / 3;
+    for (let i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].offsetTop <= scrollPos) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      currentIndex = Math.min(getCurrentSection() + 1, sections.length - 1);
+      sections[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      currentIndex = Math.max(getCurrentSection() - 1, 0);
+      sections[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      sections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      sections[sections.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

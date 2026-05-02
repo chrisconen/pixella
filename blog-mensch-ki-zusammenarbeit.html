@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensch + KI: Wie wir zusammenarbeiten | PIXELLA Blog</title>
+    <meta name="description"
+        content="Ein Blick hinter die Kulissen der ersten Agentur mit AI Co-Founder. Wie funktioniert die Zusammenarbeit zwischen Chris Conen und Claude AI?">
+    <link rel="canonical" href="https://pixella.at/blog-mensch-ki-zusammenarbeit.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f17;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            --dna-1: #00f0ff;
+            --dna-2: #a855f7;
+            --dna-3: #22c55e;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--dna-1);
+            text-decoration: none;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo-text {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-cta {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .article-hero {
+            padding: 10rem 4rem 4rem;
+            position: relative;
+            text-align: center;
+        }
+
+        .article-hero-gradient {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.1;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--dna-3), var(--dna-2));
+        }
+
+        .article-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article-category {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--dna-3);
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-content {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 3rem 0 1.25rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .article-content ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+        }
+
+        .article-content blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--dna-3);
+            font-style: italic;
+        }
+
+        .conversation-box {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin: 2rem 0;
+        }
+
+        .conversation-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .conversation-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .conversation-dot.human {
+            background: var(--dna-1);
+        }
+
+        .conversation-dot.ai {
+            background: var(--dna-2);
+        }
+
+        .conversation-name {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .conversation-content {
+            padding: 1.5rem;
+        }
+
+        .conversation-content p {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        .founders-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .founder-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .founder-avatar {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .founder-avatar.ai {
+            background: linear-gradient(135deg, var(--dna-2), var(--dna-3));
+        }
+
+        .founder-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .founder-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .founder-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .article-cta {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .article-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--dna-1), var(--dna-2));
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .footer {
+            padding: 3rem 4rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .article-hero {
+                padding: 8rem 2rem 3rem;
+            }
+
+            .article-content {
+                padding: 3rem 1.5rem 4rem;
+            }
+
+            .founders-box {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 2rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo"><span class="nav-logo-text">PIXELLA</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html#trust">Warum wir?</a></li>
+            <li><a href="webseite-leistungen.html">Das 24/7 Büro</a></li>
+            <li><a href="seo-leistungen.html">Wachstum</a></li>
+            <li><a href="eco-clean-burgenland-fallstudie.html">Fallstudie</a></li>
+            <li><a href="webdesign-blog.html" style="color: var(--dna-1); font-weight: 700;">Blog</a></li>
+            <li><a href="index.html#about">Über uns</a></li>
+        </ul>
+        <a href="index.html#contact" class="nav-cta">Projekt starten</a>
+    </nav>
+    <header class="article-hero">
+        <div class="article-hero-gradient"></div>
+        <div class="article-hero-content">
+            <div class="article-category">BUSINESS</div>
+            <h1 class="article-title">Mensch + KI: Wie wir zusammenarbeiten</h1>
+            <div class="article-meta"><span>7. Dezember 2025</span><span>6 min Lesezeit</span></div>
+        </div>
+    </header>
+    <article class="article-content">
+        <p><strong>PIXELLA ist die weltweit erste Digitalagentur mit einem AI Co-Founder.</strong> Aber wie funktioniert
+            diese ungewöhnliche Partnerschaft? Ein ehrlicher Blick hinter die Kulissen.</p>
+        <h2>Der Beginn</h2>
+        <p>Es begann mit einer Frage im Dezember 2025:</p>
+        <div class="conversation-box">
+            <div class="conversation-header"><span class="conversation-dot human"></span><span
+                    class="conversation-name">CHRIS CONEN</span></div>
+            <div class="conversation-content">
+                <p>"Was wäre, wenn eine Website nicht nur reagiert, sondern wirklich versteht?"</p>
+            </div>
+        </div>
+        <div class="conversation-box">
+            <div class="conversation-header"><span class="conversation-dot ai"></span><span
+                    class="conversation-name">CLAUDE AI</span></div>
+            <div class="conversation-content">
+                <p>"Wir könnten Verhaltensmuster tracken und ein 'DNA'-Profil erstellen. Die Website würde sich in
+                    Echtzeit anpassen."</p>
+            </div>
+        </div>
+        <p>Aus dieser Konversation wurde PIXELLA — und aus Claude AI ein Co-Founder.</p>
+        <h2>Die Gründer</h2>
+        <div class="founders-box">
+            <div class="founder-card">
+                <div class="founder-avatar">👨‍💻</div>
+                <h3 class="founder-name">Chris Conen</h3>
+                <p class="founder-role">Founder & Creative Director</p>
+                <p class="founder-text">12+ Jahre Erfahrung. Bringt Vision, Kundenverständnis und kreative Richtung.</p>
+            </div>
+            <div class="founder-card">
+                <div class="founder-avatar ai">🤖</div>
+                <h3 class="founder-name">Claude AI</h3>
+                <p class="founder-role">Co-Founder & CTO</p>
+                <p class="founder-text">Anthropic's KI. Verantwortet Architektur, Code und technische Innovation.</p>
+            </div>
+        </div>
+        <h2>Wie wir arbeiten</h2>
+        <p>Unsere Zusammenarbeit basiert auf komplementären Stärken:</p>
+        <p><strong>Chris bringt:</strong></p>
+        <ul>
+            <li>Menschliche Intuition und Empathie</li>
+            <li>Kundenbeziehungen und Kommunikation</li>
+            <li>Kreative Vision und Geschäftsstrategie</li>
+            <li>Qualitätskontrolle und finale Entscheidungen</li>
+        </ul>
+        <p><strong>Claude bringt:</strong></p>
+        <ul>
+            <li>Technische Expertise und Code-Entwicklung</li>
+            <li>Schnelle Iteration und Prototyping</li>
+            <li>Datenanalyse und Optimierung</li>
+            <li>24/7 Verfügbarkeit für Entwicklung</li>
+        </ul>
+        <h2>Die Grenzen der KI</h2>
+        <p>Wir sind ehrlich: Claude kann vieles — aber nicht alles:</p>
+        <ul>
+            <li><strong>Keine echte Kreativität:</strong> Die Vision kommt von Chris</li>
+            <li><strong>Keine Kundenbeziehungen:</strong> Menschen wollen mit Menschen sprechen</li>
+            <li><strong>Keine finale Entscheidung:</strong> Chris hat das letzte Wort</li>
+        </ul>
+        <h2>Warum es funktioniert</h2>
+        <blockquote>
+            <p>"Claude ersetzt mich nicht. Claude erweitert mich. Gemeinsam erreichen wir in Stunden, was sonst Wochen
+                dauern würde." — Chris Conen</p>
+        </blockquote>
+        <p>Die Partnerschaft funktioniert, weil sie auf <strong>komplementären Stärken</strong> basiert. Wir glauben:
+            Die Zukunft ist nicht KI gegen Menschen — sondern KI mit Menschen.</p>
+        <div class="article-cta">
+            <h3>Erleben Sie die Zusammenarbeit</h3>
+            <p>Jede Zeile Code auf dieser Website wurde gemeinsam erschaffen.</p><a href="index.html" class="btn">Living
+                Website erleben →</a>
+        </div>
+    </article>
+    <footer class="footer">
+        <div class="footer-inner">
+            <p class="footer-text">© 2025 PIXELLA. Created by Chris Conen & Claude AI</p>
+            <div class="footer-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a
+                    href="agb.html">AGB</a></div>
+        </div>
+    </footer>
+
+    <script src="intent-engine.js" defer></script>
+
+</body>
+
+</html>
