@@ -608,6 +608,39 @@
 
     @media(max-width:680px) {
 
+      /* the plate around .inner covers everything at this width — drop it */
+      .inner::before {
+        display: none
+      }
+
+      .wrap {
+        align-content: end;
+        padding: clamp(4.5rem, 14vh, 7rem) clamp(1.2rem, 6vw, 2rem) clamp(3.5rem, 12vh, 5.5rem);
+      }
+
+      .wrap[data-align="right"] {
+        justify-items: start;
+        text-align: left
+      }
+
+      .panel::after {
+        background:
+          linear-gradient(to top,
+            rgba(4, 7, 12, .95) 0%,
+            rgba(4, 7, 12, .88) 34%,
+            rgba(4, 7, 12, .45) 58%,
+            rgba(4, 7, 12, .12) 78%,
+            transparent 100%),
+          radial-gradient(130% 60% at 50% 0%, rgba(4, 7, 12, .55) 0%, transparent 60%);
+      }
+
+      .lead {
+        max-width: none
+      }
+    }
+
+    @media(max-width:680px) {
+
       /* the header must never wrap or run off the edge: the brand loses its
          subtitle, the motion control becomes a symbol, the CTA a short word */
       header.top {
@@ -1272,11 +1305,13 @@
       function layout() { runway.style.height = ((N - 1) * step() + vh) + "px"; }
 
       // ---- video: every panel gets one, it runs once, then holds on the last frame ----
+      const phone = matchMedia("(max-width: 700px)").matches;
+
       function mount(p) {
         let v = p.querySelector("video");
         if (v) return v;
         v = document.createElement("video");
-        v.muted = true; v.playsInline = true; v.preload = "auto";
+        v.muted = true; v.playsInline = true; v.preload = phone ? "metadata" : "auto";
         // hasAttribute, not dataset.loop: a valueless data-loop reads as "" and is falsy
         v.loop = p.hasAttribute("data-loop");   // otherwise: one pass, then hold
         v.defaultMuted = true;
@@ -1318,9 +1353,19 @@
         armed = true;
         const go = () => {
           armed = false;
-          panels.forEach(q => play(q, q.dataset.active === "1"));
+          if (motionOff) return;
+          // Inside the gesture, kick the element directly: load() first, because on
+          // iOS there is often no data yet, then play(). Going back through play()
+          // alone was not enough.
+          panels.forEach(q => {
+            const v = q.querySelector("video");
+            if (!v || q.dataset.active !== "1" || v.dataset.done) return;
+            try { v.load(); } catch (e) { }
+            const pr = v.play();
+            if (pr && pr.catch) pr.catch(() => { });
+          });
         };
-        ["pointerdown", "touchend", "keydown"].forEach(e =>
+        ["touchstart", "pointerdown", "keydown"].forEach(e =>
           addEventListener(e, go, { once: true, passive: true }));
       }
 
@@ -1339,14 +1384,14 @@
           return;
         }
         if (v.dataset.done) return;                       // holds the closing frame while it stays in view
-        if (v.readyState >= 2) { if (v.paused) v.play().catch(armGesture); return; }
-        // not decoded yet: start it the moment it can, if this panel is still the one on top
-        if (!v.dataset.armed) {
-          v.dataset.armed = "1";
-          v.addEventListener("canplay", () => {
-            if (p.dataset.active === "1" && !v.dataset.done) v.play().catch(armGesture);
-          }, { once: true });
-        }
+        if (!v.paused) return;
+        // No readyState gate. iOS Safari frequently fetches nothing until a gesture,
+        // so readyState stays 0 forever and a "wait for canplay" path never fires —
+        // which is exactly why the phone showed a still while Android was fine.
+        // play() on an unloaded element is legal: it starts the fetch and plays when
+        // it can, and rejects if the browser refuses.
+        const pr = v.play();
+        if (pr && pr.catch) pr.catch(() => armGesture());
       }
 
       // ---- scroll ----
@@ -1385,7 +1430,7 @@
 
           p.dataset.active = i === active ? "1" : "0";
           p.toggleAttribute("inert", i !== active);
-          mount(p);
+          if (!phone || Math.abs(i - active) <= 1) mount(p);
           play(p, i === active);
           p.querySelector(".wrap").classList.toggle("in", i === active);
         });
@@ -1411,6 +1456,15 @@
       motionBtn.addEventListener("click", () => setMotion(!motionOff));
       setMotion(motionOff);
 
+      // A page that loads in a background tab, or a phone whose screen sleeps, never
+      // starts its clip: browsers refuse playback while the document is hidden and
+      // nothing asks again afterwards. Ask again on the way back.
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState !== "visible" || motionOff) return;
+        panels.forEach(q => play(q, q.dataset.active === "1"));
+        dirty = true;
+      });
+
       addEventListener("scroll", () => { dirty = true; }, { passive: true });
       addEventListener("resize", () => {
         // a width change is a real resize or a rotation; a height-only change of a
@@ -1434,7 +1488,7 @@
         fill.style.width = "100%";
         loader.classList.add("done");
         measure();
-        preloadChain(0);      // pull every clip down in order, so none is late to its panel
+        if (!phone) preloadChain(0);   // desktop only: a phone mounts them as it goes
       };
       const still = document.querySelector(".panel .still");
       if (still.complete) go(); else still.addEventListener("load", go, { once: true });
