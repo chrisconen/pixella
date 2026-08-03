@@ -856,6 +856,13 @@
       color: var(--dim);
     }
 
+    /* The legal row is pinned to the bottom of the last panel and wraps to three
+       lines on a phone. Reserve exactly its measured height so the buttons above
+       cannot land on it — a fixed value would break the moment the text rewraps. */
+    .panel:last-of-type .wrap {
+      padding-bottom: calc(var(--legal-h, 3rem) + 1.7rem);
+    }
+
     .legal a {
       color: var(--dim);
       text-decoration: none
@@ -1302,7 +1309,14 @@
       // 60px per panel — the page would jump under the finger mid-scroll.
       let vw = innerWidth, vh = innerHeight;
       function step() { return vh * 1.15; }
-      function layout() { runway.style.height = ((N - 1) * step() + vh) + "px"; }
+      const legalRow = document.querySelector(".legal");
+      function fitLegal() {
+        if (legalRow) document.documentElement.style.setProperty("--legal-h", legalRow.offsetHeight + "px");
+      }
+      function layout() {
+        runway.style.height = ((N - 1) * step() + vh) + "px";
+        fitLegal();
+      }
 
       // ---- video: every panel gets one, it runs once, then holds on the last frame ----
       const phone = matchMedia("(max-width: 700px)").matches;
@@ -1478,6 +1492,7 @@
       layout();
       measure();
       tick();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLegal);
 
       // ---- loader: the hero still is enough to show the page ----
       const fill = loader.querySelector("i");
