@@ -602,26 +602,62 @@
       white-space: nowrap
     }
 
-    @media(max-width:560px) {
+    .lbl-narrow {
+      display: none
+    }
 
-      .top nav a.pill,
-      .motion {
-        font-size: .58rem;
-        letter-spacing: .08em;
-        padding: .62rem .8rem;
-      }
+    @media(max-width:680px) {
 
-      .top nav {
-        gap: .45rem
-      }
-
+      /* the header must never wrap or run off the edge: the brand loses its
+         subtitle, the motion control becomes a symbol, the CTA a short word */
       header.top {
-        padding-left: 1rem;
-        padding-right: 1rem
+        padding-left: .9rem;
+        padding-right: .9rem;
+        gap: .6rem;
+        flex-wrap: nowrap;
       }
 
       .brand span {
         display: none
+      }
+
+      .brand b {
+        font-size: 1.2rem
+      }
+
+      .top nav {
+        gap: .4rem;
+        flex-wrap: nowrap
+      }
+
+      .motion {
+        font-size: 0;
+        padding: .6rem .75rem;
+        line-height: 1;
+      }
+
+      .motion::before {
+        content: "❚❚";
+        font-size: .74rem;
+        letter-spacing: -.05em;
+      }
+
+      .motion[aria-pressed="true"]::before {
+        content: "▶"
+      }
+
+      .top nav a.pill {
+        font-size: .64rem;
+        letter-spacing: .1em;
+        padding: .62rem .95rem;
+      }
+
+      .lbl-wide {
+        display: none
+      }
+
+      .lbl-narrow {
+        display: inline
       }
     }
 
@@ -951,7 +987,7 @@
       <a href="portfolio.html">Portfolio</a>
       <a data-to="6">NIS2 &amp; WCAG</a>
       <button class="motion" id="motion" aria-pressed="false" aria-label="Bewegung pausieren">Pause</button>
-      <a href="mailto:chris@pixella.at" class="pill">Projekt starten</a>
+      <a href="mailto:chris@pixella.at" class="pill"><span class="lbl-wide">Projekt starten</span><span class="lbl-narrow">Anfrage</span></a>
     </nav>
   </header>
   <nav class="dots" id="dots" aria-label="Abschnitte"></nav>
