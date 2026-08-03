@@ -962,21 +962,50 @@
       function step() { return innerHeight * 1.15; }
       function layout() { runway.style.height = ((N - 1) * step() + innerHeight) + "px"; }
 
-      // ---- video: mount late, play only what is on screen ----
+      // ---- video: every panel gets one, it runs once, then holds on the last frame ----
       function mount(p) {
-        if (p.querySelector("video")) return;
-        const v = document.createElement("video");
-        v.muted = true; v.loop = true; v.playsInline = true; v.preload = "auto";
+        let v = p.querySelector("video");
+        if (v) return v;
+        v = document.createElement("video");
+        v.muted = true; v.playsInline = true; v.preload = "auto";   // no loop: one pass only
         v.setAttribute("disablepictureinpicture", "");
         v.src = p.dataset.src;
-        v.addEventListener("playing", () => v.classList.add("on"), { once: true });
-        p.insertBefore(v, p.firstChild.nextSibling);
+        // reveal on the first decoded frame, not on "playing" — a video paused at its
+        // end never fires playing again, and the panel would fall back to the still
+        v.addEventListener("loadeddata", () => v.classList.add("on"), { once: true });
+        v.addEventListener("ended", () => { v.dataset.done = "1"; }, { once: true });
+        p.insertBefore(v, p.querySelector(".still"));
+        return v;
       }
+
+      // Load them all, one after the other, starting with the panel after the hero.
+      // Eight clips at once would starve each other; one panel of lead time is not
+      // enough on a slow line, and a clip that is not ready when its panel arrives
+      // used to get paused before it ever started — which is why most panels stayed
+      // on the still image.
+      function preloadChain(i) {
+        if (i >= N) return;
+        const v = mount(panels[i]);
+        const next = () => preloadChain(i + 1);
+        if (v.readyState >= 3) return next();
+        v.addEventListener("canplaythrough", next, { once: true });
+        v.addEventListener("error", next, { once: true });
+        setTimeout(next, 6000);        // never let one stalled clip block the rest
+      }
+
       function play(p, on) {
         const v = p.querySelector("video");
         if (!v) return;
-        if (on) { if (v.paused) v.play().catch(() => { }); }
-        else if (!v.paused) v.pause();
+        if (!on) { if (!v.paused) v.pause(); return; }
+        if (v.dataset.done) return;                       // frozen on the closing frame, for good
+        if (v.readyState >= 2) { if (v.paused) v.play().catch(() => { }); return; }
+        // not decoded yet: start it the moment it can, if this panel is still the one on top
+        if (!v.dataset.armed) {
+          v.dataset.armed = "1";
+          v.addEventListener("canplay", () => {
+            if (p.dataset.active === "1" && !v.dataset.done) v.play().catch(() => { });
+          }, { once: true });
+        }
       }
 
       // ---- scroll ----
@@ -1011,8 +1040,8 @@
           // nothing to composite for panels parked off-screen or fully buried
           p.style.visibility = (i > active + 1 || i < active - 1) ? "hidden" : "visible";
 
-          const near = Math.abs(i - active) <= 1;
-          if (near) mount(p);
+          p.dataset.active = i === active ? "1" : "0";
+          mount(p);
           play(p, i === active);
           p.querySelector(".wrap").classList.toggle("in", i === active);
         });
@@ -1034,7 +1063,15 @@
 
       // ---- loader: the hero still is enough to show the page ----
       const fill = loader.querySelector("i");
-      const go = () => { fill.style.width = "100%"; loader.classList.add("done"); measure(); };
+      let started = false;
+      const go = () => {
+        if (started) return;
+        started = true;
+        fill.style.width = "100%";
+        loader.classList.add("done");
+        measure();
+        preloadChain(0);      // pull every clip down in order, so none is late to its panel
+      };
       const still = document.querySelector(".panel .still");
       if (still.complete) go(); else still.addEventListener("load", go, { once: true });
       setTimeout(go, 4000);   // ponytail: never let a slow asset hold the page hostage
