@@ -103,6 +103,12 @@
       transition: color .3s, border-color .3s;
     }
 
+    /* when motion is off the button is the way back on — make it look like it */
+    .motion[aria-pressed="true"] {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
     .motion:hover,
     .motion:focus-visible {
       color: var(--cyan);
@@ -169,8 +175,8 @@
       z-index: 2;
       pointer-events: none;
       background:
-        linear-gradient(var(--wash, 100deg), rgba(4, 7, 12, .93) 0%, rgba(4, 7, 12, .72) 32%, rgba(4, 7, 12, .3) 62%, rgba(4, 7, 12, .8) 100%),
-        radial-gradient(120% 85% at 50% 45%, rgba(4, 7, 12, .18) 28%, rgba(4, 7, 12, .62) 74%, rgba(4, 7, 12, .95) 100%),
+        linear-gradient(var(--wash, 100deg), rgba(4, 7, 12, .82) 0%, rgba(4, 7, 12, .5) 32%, rgba(4, 7, 12, .08) 62%, rgba(4, 7, 12, .42) 100%),
+        radial-gradient(120% 85% at 50% 45%, transparent 30%, rgba(4, 7, 12, .5) 76%, rgba(4, 7, 12, .9) 100%),
         linear-gradient(to top, rgba(4, 7, 12, .88) 0%, transparent 44%);
     }
 
@@ -199,7 +205,23 @@
     }
 
     .inner {
-      max-width: min(960px, 88vw)
+      max-width: min(960px, 88vw);
+      position: relative;
+      isolation: isolate;
+    }
+
+    /* local scrim: enough contrast under the type, footage untouched elsewhere */
+    .inner::before {
+      content: "";
+      position: absolute;
+      inset: clamp(-3.5rem, -6vw, -2rem) clamp(-4.5rem, -7vw, -2.5rem);
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(115% 105% at 50% 50%,
+          rgba(4, 7, 12, .88) 0%,
+          rgba(4, 7, 12, .78) 40%,
+          rgba(4, 7, 12, .45) 68%,
+          transparent 85%);
     }
 
     /* ---------- type ---------- */
@@ -572,7 +594,35 @@
       color: #04070c;
       background: var(--ink);
       padding: .7rem 1.15rem;
-      border-radius: 100px
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .motion {
+      white-space: nowrap
+    }
+
+    @media(max-width:560px) {
+
+      .top nav a.pill,
+      .motion {
+        font-size: .58rem;
+        letter-spacing: .08em;
+        padding: .62rem .8rem;
+      }
+
+      .top nav {
+        gap: .45rem
+      }
+
+      header.top {
+        padding-left: 1rem;
+        padding-right: 1rem
+      }
+
+      .brand span {
+        display: none
+      }
     }
 
     .top nav a.pill:hover {
@@ -1193,6 +1243,10 @@
         v.muted = true; v.playsInline = true; v.preload = "auto";
         // hasAttribute, not dataset.loop: a valueless data-loop reads as "" and is falsy
         v.loop = p.hasAttribute("data-loop");   // otherwise: one pass, then hold
+        v.defaultMuted = true;
+        v.setAttribute("muted", "");
+        v.setAttribute("playsinline", "");
+        v.setAttribute("webkit-playsinline", "");   // older iOS still looks for this
         v.setAttribute("disablepictureinpicture", "");
         v.setAttribute("aria-hidden", "true");      // decorative: no captions to give
         v.src = p.dataset.src;
@@ -1222,6 +1276,18 @@
         setTimeout(next, 6000);        // never let one stalled clip block the rest
       }
 
+      let armed = false;
+      function armGesture() {
+        if (armed) return;
+        armed = true;
+        const go = () => {
+          armed = false;
+          panels.forEach(q => play(q, q.dataset.active === "1"));
+        };
+        ["pointerdown", "touchend", "keydown"].forEach(e =>
+          addEventListener(e, go, { once: true, passive: true }));
+      }
+
       function play(p, on) {
         const v = p.querySelector("video");
         if (!v) return;
@@ -1237,12 +1303,12 @@
           return;
         }
         if (v.dataset.done) return;                       // holds the closing frame while it stays in view
-        if (v.readyState >= 2) { if (v.paused) v.play().catch(() => { }); return; }
+        if (v.readyState >= 2) { if (v.paused) v.play().catch(armGesture); return; }
         // not decoded yet: start it the moment it can, if this panel is still the one on top
         if (!v.dataset.armed) {
           v.dataset.armed = "1";
           v.addEventListener("canplay", () => {
-            if (p.dataset.active === "1" && !v.dataset.done) v.play().catch(() => { });
+            if (p.dataset.active === "1" && !v.dataset.done) v.play().catch(armGesture);
           }, { once: true });
         }
       }
