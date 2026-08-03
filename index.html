@@ -54,6 +54,73 @@
       color: #04070c
     }
 
+    /* ---------- a11y ---------- */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip {
+      position: fixed;
+      top: -100px;
+      left: 1rem;
+      z-index: 90;
+      padding: .9rem 1.4rem;
+      border-radius: 100px;
+      background: var(--ink);
+      color: #04070c;
+      text-decoration: none;
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: top .3s var(--ease);
+    }
+
+    .skip:focus {
+      top: 1rem
+    }
+
+    /* motion toggle */
+    .motion {
+      all: unset;
+      cursor: pointer;
+      padding: .6rem .9rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, .26);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      transition: color .3s, border-color .3s;
+    }
+
+    .motion:hover,
+    .motion:focus-visible {
+      color: var(--cyan);
+      border-color: var(--cyan)
+    }
+
+    .motion:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px
+    }
+
+    .top nav a:focus-visible,
+    .brand:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
     /* ---------- stacked panels ---------- */
     #stage {
       position: fixed;
@@ -696,6 +763,14 @@
         animation: none
       }
     }
+
+    /* WCAG 2.2 AA 2.5.8: a tap target needs 24x24 CSS px */
+    .legal a,
+    footer a {
+      display: inline-block;
+      min-height: 24px;
+      padding: .35rem .25rem;
+    }
   </style>
   <script type="application/ld+json">
 {
@@ -815,6 +890,8 @@
 
 <body>
 
+  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
   <div id="bar"></div>
 
   <header class="top">
@@ -823,12 +900,14 @@
       <a data-to="2">Leistungen</a>
       <a href="portfolio.html">Portfolio</a>
       <a data-to="6">NIS2 &amp; WCAG</a>
+      <button class="motion" id="motion" aria-pressed="false" aria-label="Bewegung pausieren">Pause</button>
       <a href="mailto:chris@pixella.at" class="pill">Projekt starten</a>
     </nav>
   </header>
   <nav class="dots" id="dots" aria-label="Abschnitte"></nav>
 
-  <div id="stage">
+  <main id="inhalt">
+    <div id="stage">
 
     <!-- 1 · Österreich-Relief mit Datenlinien -->
     <section class="panel" data-dir="none" data-label="Start" data-src="assets/webdesign-agentur-oesterreich-landkarte.mp4" id="top">
@@ -1047,7 +1126,8 @@
       </div>
     </section>
 
-  </div>
+    </div>
+  </main>
 
   <div id="runway" aria-hidden="true"></div>
 
@@ -1072,12 +1152,18 @@
       document.querySelectorAll("[data-split]").forEach(el => {
         const txt = el.textContent;
         el.textContent = "";
+        const sr = document.createElement("span");
+        sr.className = "sr-only";
+        sr.textContent = txt;
+        el.appendChild(sr);
+        const vis = document.createElement("span");
+        vis.setAttribute("aria-hidden", "true");
         [...txt].forEach((c, i) => {
           const s = document.createElement("span");
           s.className = "ch"; s.style.setProperty("--i", i); s.textContent = c;
-          el.appendChild(s);
+          vis.appendChild(s);
         });
-        el.setAttribute("aria-label", txt);
+        el.appendChild(vis);
       });
 
       // section nav
@@ -1092,8 +1178,12 @@
         a.onclick = () => scrollTo({ top: +a.dataset.to * step(), behavior: "smooth" }));
 
       // one panel transition costs 1.15 viewports of scroll
-      function step() { return innerHeight * 1.15; }
-      function layout() { runway.style.height = ((N - 1) * step() + innerHeight) + "px"; }
+      // Measured once and held: mobile browsers fire resize when the address bar
+      // slides away, and re-measuring there would restretch the runway by roughly
+      // 60px per panel — the page would jump under the finger mid-scroll.
+      let vw = innerWidth, vh = innerHeight;
+      function step() { return vh * 1.15; }
+      function layout() { runway.style.height = ((N - 1) * step() + vh) + "px"; }
 
       // ---- video: every panel gets one, it runs once, then holds on the last frame ----
       function mount(p) {
@@ -1104,6 +1194,7 @@
         // hasAttribute, not dataset.loop: a valueless data-loop reads as "" and is falsy
         v.loop = p.hasAttribute("data-loop");   // otherwise: one pass, then hold
         v.setAttribute("disablepictureinpicture", "");
+        v.setAttribute("aria-hidden", "true");      // decorative: no captions to give
         v.src = p.dataset.src;
         // reveal on the first decoded frame, not on "playing" — a video paused at its
         // end never fires playing again, and the panel would fall back to the still
@@ -1134,8 +1225,9 @@
       function play(p, on) {
         const v = p.querySelector("video");
         if (!v) return;
-        if (!on) {
+        if (!on || motionOff) {
           if (!v.paused) v.pause();
+          if (motionOff) return;
           // Rewind once it is off screen, so coming back — scrolling up, or jumping to
           // the top — starts the clip over instead of leaving the last frame stuck.
           if (v.dataset.done || v.currentTime > 0) {
@@ -1157,6 +1249,8 @@
 
       // ---- scroll ----
       let dirty = true;
+      // honoured on load and switchable at any time from the header
+      let motionOff = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       function measure() {
         dirty = false;
@@ -1188,6 +1282,7 @@
           p.style.visibility = (i > active + 1 || i < active - 1) ? "hidden" : "visible";
 
           p.dataset.active = i === active ? "1" : "0";
+          p.toggleAttribute("inert", i !== active);
           mount(p);
           play(p, i === active);
           p.querySelector(".wrap").classList.toggle("in", i === active);
@@ -1201,8 +1296,28 @@
         requestAnimationFrame(tick);
       }
 
+      const motionBtn = document.getElementById("motion");
+      function setMotion(off) {
+        motionOff = off;
+        motionBtn.setAttribute("aria-pressed", String(off));
+        // short label so the header survives a 390px phone, full sentence for the
+        // accessibility tree
+        motionBtn.textContent = off ? "Abspielen" : "Pause";
+        motionBtn.setAttribute("aria-label", off ? "Bewegung abspielen" : "Bewegung pausieren");
+        panels.forEach(p => play(p, p.dataset.active === "1"));
+      }
+      motionBtn.addEventListener("click", () => setMotion(!motionOff));
+      setMotion(motionOff);
+
       addEventListener("scroll", () => { dirty = true; }, { passive: true });
-      addEventListener("resize", () => { layout(); dirty = true; });
+      addEventListener("resize", () => {
+        // a width change is a real resize or a rotation; a height-only change of a
+        // few percent is the address bar and must not move anything
+        if (innerWidth !== vw || Math.abs(innerHeight - vh) / vh > 0.25) {
+          vw = innerWidth; vh = innerHeight; layout();
+        }
+        dirty = true;
+      });
 
       layout();
       measure();
