@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pixella.at/sitemap.xml
