@@ -1,7 +1,7 @@
 // Reproduces the panel slide mapping from index.html against real geometry.
 // Fails if a panel never lands, lands early, or if the runway is the wrong height.
-const N = 8, VH = 1080;
-const DIRS = ["none", "right", "up", "left", "down", "right", "up", "left"];
+const N = 9, VH = 1080;
+const DIRS = ["none", "right", "up", "left", "down", "right", "up", "left", "down"];
 const OFF = { right: [110, 0], left: [-110, 0], up: [0, 110], down: [0, -110], none: [0, 0] };
 const S = VH * 1.15;
 const runway = (N - 1) * S + VH;
