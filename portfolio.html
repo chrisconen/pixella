@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Portfolio — PIXELLA Webdesign | Zehn Demos, alle live</title>
+  <meta name="description"
+    content="Zehn Demo-Seiten von PIXELLA Webdesign — Photovoltaik, Gastronomie, Immobilien, Handel, SaaS. Jede läuft im Browser, keine Screenshots.">
+  <link rel="canonical" href="https://pixella.at/portfolio.html">
+  <meta property="og:title" content="Portfolio — PIXELLA Webdesign">
+  <meta property="og:description" content="Zehn Demo-Seiten, jede läuft live im Browser.">
+  <meta property="og:locale" content="de_AT">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://chrisconen.github.io">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #ffffff;
+      --dim: rgba(255, 255, 255, .72);
+      --cyan: #3ddcff;
+      --red: #ff4d5f;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+      --display: "Bricolage Grotesque", "Arial Black", Helvetica, sans-serif;
+      --text: "Inter", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    body {
+      background: #04070c;
+      color: var(--ink);
+      font-family: var(--text);
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--cyan);
+      color: #04070c
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(72% 46% at 10% 0%, rgba(61, 220, 255, .16), transparent 70%),
+        radial-gradient(58% 44% at 94% 6%, rgba(255, 77, 95, .11), transparent 70%);
+    }
+
+    /* ---------- chrome ---------- */
+    header.top {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: clamp(1rem, 2.4vw, 1.6rem) clamp(1.2rem, 5vw, 3.4rem);
+      background: linear-gradient(to bottom, #04070c 42%, rgba(4, 7, 12, .82) 80%, transparent);
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: .7rem;
+      text-decoration: none;
+      color: var(--ink)
+    }
+
+    .brand b {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.45rem;
+      letter-spacing: -.04em
+    }
+
+    .brand span {
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .top nav {
+      display: flex;
+      gap: clamp(1rem, 2.2vw, 2rem);
+      align-items: center
+    }
+
+    .top nav a {
+      color: var(--dim);
+      text-decoration: none;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+
+    .top nav a:hover {
+      color: var(--cyan)
+    }
+
+    .top nav a.pill {
+      color: #04070c;
+      background: var(--ink);
+      padding: .7rem 1.15rem;
+      border-radius: 100px
+    }
+
+    .top nav a.pill:hover {
+      background: var(--cyan)
+    }
+
+    @media(max-width:760px) {
+      .top nav a:not(.pill) {
+        display: none
+      }
+    }
+
+    /* ---------- masthead ---------- */
+    main {
+      position: relative;
+      z-index: 10;
+      padding: 0 clamp(1.2rem, 5vw, 3.4rem) clamp(3rem, 8vw, 6rem)
+    }
+
+    .head {
+      padding: clamp(2rem, 6vw, 5rem) 0 clamp(1.4rem, 3vw, 2.2rem)
+    }
+
+    .over {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      font-size: clamp(.64rem, 1.1vw, .76rem);
+      font-weight: 700;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: clamp(.9rem, 2.2vw, 1.4rem);
+    }
+
+    .over::before {
+      content: "";
+      height: 3px;
+      width: clamp(24px, 4vw, 52px);
+      background: currentColor;
+      border-radius: 3px
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      line-height: .92;
+      letter-spacing: -.035em;
+      font-size: clamp(2.5rem, 7.6vw, 6rem);
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--cyan)
+    }
+
+    .lead {
+      margin-top: clamp(1rem, 2.2vw, 1.6rem);
+      max-width: 62ch;
+      font-size: clamp(1rem, 1.35vw, 1.16rem);
+      line-height: 1.65;
+      color: var(--dim);
+    }
+
+    .lead strong {
+      color: var(--ink);
+      font-weight: 700
+    }
+
+    /* ---------- filter ---------- */
+    .filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      position: sticky;
+      top: clamp(3.8rem, 8vw, 5rem);
+      z-index: 20;
+      padding: .9rem 0 1.1rem;
+      background: linear-gradient(to bottom, #04070c 58%, rgba(4, 7, 12, .75) 86%, transparent);
+    }
+
+    .filter button {
+      all: unset;
+      cursor: pointer;
+      padding: .58rem 1.05rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      background: rgba(8, 12, 18, .5);
+      backdrop-filter: blur(10px);
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: background .3s, border-color .3s, color .3s;
+    }
+
+    .filter button:hover {
+      border-color: var(--cyan);
+      color: var(--cyan)
+    }
+
+    .filter button[aria-pressed="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #04070c
+    }
+
+    .filter button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px
+    }
+
+    .filter .n {
+      margin-left: auto;
+      align-self: center;
+      font-size: .64rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ---------- grid ---------- */
+    .items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+      gap: clamp(.8rem, 1.6vw, 1.3rem);
+    }
+
+    .item {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+      transition-delay: calc(var(--i) * 45ms);
+    }
+
+    .item.shown {
+      opacity: 1;
+      transform: none
+    }
+
+    .item[hidden] {
+      display: none
+    }
+
+    .item__hit {
+      all: unset;
+      box-sizing: border-box;
+      display: block;
+      cursor: pointer;
+      height: 100%;
+      padding: .55rem .55rem 1.05rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(8, 12, 18, .5);
+      backdrop-filter: blur(14px);
+      transition: border-color .35s, background .35s, transform .35s var(--ease);
+    }
+
+    .item__hit:hover,
+    .item__hit:focus-visible {
+      border-color: var(--cyan);
+      background: rgba(8, 12, 18, .76);
+      transform: translateY(-3px);
+    }
+
+    .item__hit:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px
+    }
+
+    .item__frame {
+      display: block;
+      position: relative;
+      aspect-ratio: 16/10;
+      border-radius: 13px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(61, 220, 255, .15), rgba(255, 77, 95, .09)),
+        #080d14;
+    }
+
+    .item__ph {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      text-align: center;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1rem, 2.1vw, 1.45rem);
+      letter-spacing: -.03em;
+      color: rgba(255, 255, 255, .3);
+      transition: opacity .4s;
+    }
+
+    .item__frame iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      border: 0;
+      transform: scale(var(--s, .28));
+      transform-origin: 0 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .6s var(--ease);
+    }
+
+    .item__frame iframe.up {
+      opacity: 1
+    }
+
+    .item__hit:hover .item__ph,
+    .item__hit:focus-visible .item__ph {
+      opacity: .12
+    }
+
+    .item__meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: .8rem;
+      padding: .85rem .5rem .3rem;
+    }
+
+    .item__meta b {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.02rem;
+      letter-spacing: -.02em;
+    }
+
+    .item__meta em {
+      font-style: normal;
+      flex: none;
+      font-size: .56rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .item__desc {
+      padding: 0 .5rem;
+      font-size: .82rem;
+      line-height: 1.55;
+      color: var(--dim);
+      font-weight: 400;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ---------- modal ---------- */
+    #peek {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background: rgba(4, 7, 12, .94);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .4s var(--ease), visibility .4s;
+    }
+
+    #peek.open {
+      opacity: 1;
+      visibility: visible
+    }
+
+    .peek-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: clamp(.9rem, 2vw, 1.3rem) clamp(1rem, 3vw, 2rem);
+    }
+
+    .peek-bar h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      letter-spacing: -.03em;
+    }
+
+    .peek-bar div {
+      display: flex;
+      gap: .5rem;
+      align-items: center
+    }
+
+    .peek-bar a,
+    .peek-bar button {
+      all: unset;
+      box-sizing: border-box;
+      cursor: pointer;
+      padding: .6rem 1.05rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, .26);
+      font-size: .64rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      transition: background .3s, color .3s, border-color .3s;
+    }
+
+    .peek-bar a:hover,
+    .peek-bar button:hover,
+    .peek-bar a:focus-visible,
+    .peek-bar button:focus-visible {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #04070c
+    }
+
+    #peekFrame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #04070c;
+      display: block
+    }
+
+    /* ---------- closing CTA ---------- */
+    .close-cta {
+      margin-top: clamp(2.5rem, 6vw, 4.5rem);
+      padding: clamp(1.8rem, 4vw, 3rem);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(8, 12, 18, .5);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.6rem;
+      flex-wrap: wrap;
+    }
+
+    .close-cta h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+      letter-spacing: -.035em;
+      line-height: 1.05;
+    }
+
+    .close-cta p {
+      color: var(--dim);
+      margin-top: .5rem;
+      max-width: 46ch
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .8rem;
+      padding: clamp(.95rem, 1.7vw, 1.2rem) clamp(1.7rem, 3.2vw, 2.3rem);
+      border-radius: 100px;
+      background: var(--ink);
+      color: #04070c;
+      text-decoration: none;
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      transition: background .3s, gap .3s;
+    }
+
+    .cta:hover {
+      background: var(--cyan);
+      gap: 1.25rem
+    }
+
+    footer {
+      position: relative;
+      z-index: 10;
+      padding: clamp(2rem, 5vw, 3rem) clamp(1.2rem, 5vw, 3.4rem) clamp(3rem, 6vw, 4rem);
+      display: flex;
+      justify-content: space-between;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border-top: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    footer a {
+      color: var(--dim);
+      text-decoration: none
+    }
+
+    footer a:hover {
+      color: var(--cyan)
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .item {
+        opacity: 1 !important;
+        transform: none !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+    <a class="brand" href="/"><b>PIXELLA</b><span>Webdesign</span></a>
+    <nav>
+      <a href="/">Start</a>
+      <a href="webseite-leistungen.html">Leistungen</a>
+      <a href="webdesign-blog.html">Blog</a>
+      <a href="mailto:chris@pixella.at" class="pill">Projekt starten</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="head">
+      <p class="over">Portfolio</p>
+      <h1>Zehn Seiten.<br><em>Alle laufen.</em></h1>
+      <p class="lead">Keine Bildschirmfotos, keine Entwürfe — jede dieser Seiten läuft im Browser, so wie sie
+        ausgeliefert würde. <strong>Fahren Sie mit der Maus über eine Karte, um sie in Bewegung zu sehen; klicken
+          Sie, um sie ganzflächig zu öffnen.</strong> Alle Betriebe sind erfunden, die Technik dahinter ist es
+        nicht.</p>
+    </div>
+
+    <div class="filter" role="group" aria-label="Nach Branche filtern">
+      <button data-f="all" aria-pressed="true">Alle</button>
+      <button data-f="gewerbe" aria-pressed="false">Gewerbe</button>
+      <button data-f="gastro" aria-pressed="false">Gastronomie</button>
+      <button data-f="freizeit" aria-pressed="false">Freizeit</button>
+      <button data-f="immo" aria-pressed="false">Immobilien &amp; Bau</button>
+      <button data-f="handel" aria-pressed="false">Handel</button>
+      <button data-f="tech" aria-pressed="false">Technologie</button>
+      <span class="n" id="count"></span>
+    </div>
+
+    <div class="items" id="items">
+
+      <article class="item" data-cat="handel" style="--i:0">
+        <button class="item__hit" data-demo="uhrenmanufaktur" aria-label="Vorschau: Uhrenmanufaktur">
+          <span class="item__frame"><span class="item__ph">AURUM &amp; NOIR</span></span>
+          <span class="item__meta"><b>Uhrenmanufaktur</b><em>Handel</em></span>
+          <span class="item__desc">Das Prunkstück: Scrollen dreht den Tourbillon durch eine Umdrehung aus 144
+            Einzelbildern, Makro- und Explosionsfilme laufen bildgenau mit.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="gewerbe" style="--i:1">
+        <button class="item__hit" data-demo="photovoltaik" aria-label="Vorschau: Photovoltaik">
+          <span class="item__frame"><span class="item__ph">SOLARTECH</span></span>
+          <span class="item__meta"><b>Photovoltaik</b><em>Gewerbe</em></span>
+          <span class="item__desc">Off-Grid-Anlagen mit Ersparnisrechner: Regler für Anlagengröße, Verbrauch und
+            Strompreis, Ergebnis sofort — mit österreichischem Ertrag, Strommix und kWp-Preis.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="freizeit" style="--i:2">
+        <button class="item__hit" data-demo="segelschule" aria-label="Vorschau: Segelschule und Charter">
+          <span class="item__frame"><span class="item__ph">NEXUS MARITIME</span></span>
+          <span class="item__meta"><b>Segelschule &amp; Charter</b><em>Freizeit</em></span>
+          <span class="item__desc">Der Film beginnt unter Wasser und wird beim Scrollen bildgenau nach oben
+            gefahren, bis das Deck in der Sonne liegt. Die Flotte zieht seitlich vorbei.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="gastro" style="--i:3">
+        <button class="item__hit" data-demo="restaurant" aria-label="Vorschau: Holzfeuer-Steakhouse">
+          <span class="item__frame"><span class="item__ph">EMBER &amp; OAK</span></span>
+          <span class="item__meta"><b>Holzfeuer-Steakhouse</b><em>Gastronomie</em></span>
+          <span class="item__desc">Sechs Gerichte, ein Feuer. Feststehende Kapitel, Videoflächen und eine Karte,
+            die sich beim Scrollen selbst schreibt.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="immo" style="--i:4">
+        <button class="item__hit" data-demo="immobilien" aria-label="Vorschau: Immobilien-Automation">
+          <span class="item__frame"><span class="item__ph">RELAYESTATE</span></span>
+          <span class="item__meta"><b>Immobilien-Automation</b><em>Immobilien</em></span>
+          <span class="item__desc">Wie eine Anfrage in unter 60 Sekunden beantwortet, qualifiziert, verteilt und
+            ins CRM geschrieben wird — als durchgehender Ablauf gezeigt.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="immo" style="--i:5">
+        <button class="item__hit" data-demo="architektur" aria-label="Vorschau: Architekturbüro">
+          <span class="item__frame"><span class="item__ph">ELYSIAN</span></span>
+          <span class="item__meta"><b>Architekturbüro</b><em>Bau</em></span>
+          <span class="item__desc">Editorial-Layout mit WebGL-Korn im Hintergrund und GSAP-gesteuerten
+            Einblendungen. Ruhe, Material, Licht — und sehr viel Weißraum.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="handel" style="--i:6">
+        <button class="item__hit" data-demo="streetwear" aria-label="Vorschau: E-Commerce Drop">
+          <span class="item__frame"><span class="item__ph">ONYX SUPPLY</span></span>
+          <span class="item__meta"><b>E-Commerce Drop</b><em>Handel</em></span>
+          <span class="item__desc">Countdown, Größenwahl und Warenkorb ohne einen einzigen Seitenwechsel. Ein
+            Drop, kein Nachschub — die Seite verkauft die Knappheit mit.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="freizeit" style="--i:7">
+        <button class="item__hit" data-demo="fitnessstudio" aria-label="Vorschau: Kraftstudio">
+          <span class="item__frame"><span class="item__ph">FORGE</span></span>
+          <span class="item__meta"><b>Kraftstudio</b><em>Freizeit</em></span>
+          <span class="item__desc">Harte Typografie, Kreidestaub im Gegenlicht, Stundenplan und Mitgliedschaft
+            ohne Umwege. Keine Spiegel, keine Abkürzungen.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="tech" style="--i:8">
+        <button class="item__hit" data-demo="saas-analytik" aria-label="Vorschau: SaaS-Analytik">
+          <span class="item__frame"><span class="item__ph">PULSE</span></span>
+          <span class="item__meta"><b>SaaS / Churn-Analytik</b><em>Technologie</em></span>
+          <span class="item__desc">Partikel setzen sich beim Scrollen zum Dashboard zusammen. Preisumschalter
+            monatlich/jährlich, Kennzahlen, FAQ — der ganze Bausatz einer SaaS-Seite.</span>
+        </button>
+      </article>
+
+      <article class="item" data-cat="tech" style="--i:9">
+        <button class="item__hit" data-demo="veldara" aria-label="Vorschau: 3D-Web-Framework">
+          <span class="item__frame"><span class="item__ph">VELDARA</span></span>
+          <span class="item__meta"><b>3D-Web-Framework</b><em>Technologie</em></span>
+          <span class="item__desc">Produktseite für ein 3D-Framework: WebGL-Hero, ruhige technische Typografie
+            und eine Dokumentation, die man tatsächlich lesen möchte.</span>
+        </button>
+      </article>
+
+    </div>
+
+    <div class="close-cta">
+      <div>
+        <h2>Etwas Ähnliches für Ihren Betrieb?</h2>
+        <p>Sagen Sie kurz, worum es geht. Sie bekommen eine ehrliche Einschätzung, einen realistischen Termin
+          und einen Fixpreis. Das Erstgespräch kostet nichts.</p>
+      </div>
+      <a class="cta" href="mailto:chris@pixella.at">Projekt starten <span aria-hidden="true">→</span></a>
+    </div>
+  </main>
+
+  <div id="peek" role="dialog" aria-modal="true" aria-label="Live-Vorschau" aria-hidden="true">
+    <div class="peek-bar">
+      <h2 id="peekTitle"></h2>
+      <div>
+        <a id="peekOpen" href="#" target="_blank" rel="noopener">In neuem Tab öffnen &#8599;</a>
+        <button id="peekClose" aria-label="Vorschau schließen">Schließen &#10005;</button>
+      </div>
+    </div>
+    <iframe id="peekFrame" title="Live-Vorschau"></iframe>
+  </div>
+
+  <footer>
+    <div>&copy; 2026 PIXELLA — Chris Conen</div>
+    <div><a href="mailto:chris@pixella.at">chris@pixella.at</a> · <a href="tel:+436649975 4512">+43 664 9975
+        4512</a></div>
+    <div><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a
+        href="agb.html">AGB</a></div>
+  </footer>
+
+  <script>
+    (() => {
+      const BASE = "https://chrisconen.github.io/pixella-work/";
+      const items = [...document.querySelectorAll(".item")];
+      const count = document.getElementById("count");
+
+      const seen = new IntersectionObserver((es, o) => {
+        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("shown"); o.unobserve(e.target); } });
+      }, { rootMargin: "0px 0px -8% 0px" });
+      items.forEach(i => seen.observe(i));
+
+      // ---- filter ----
+      const chips = [...document.querySelectorAll(".filter button")];
+      function apply(f) {
+        let n = 0;
+        items.forEach(i => {
+          const on = f === "all" || i.dataset.cat === f;
+          i.hidden = !on;
+          if (on) { n++; i.classList.add("shown"); }
+        });
+        count.textContent = n + " / " + items.length;
+        chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.f === f));
+      }
+      chips.forEach(c => c.addEventListener("click", () => apply(c.dataset.f)));
+      apply("all");
+
+      // ---- hover preview ----
+      // ponytail: one live iframe for the whole grid. These demos each carry video and
+      // WebGL; ten of them running at once would stall the page.
+      const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
+      let hot = null, timer = 0;
+
+      function mount(hit) {
+        if (hot === hit) return;
+        unmount();
+        hot = hit;
+        const shell = hit.querySelector(".item__frame");
+        const f = document.createElement("iframe");
+        f.src = BASE + hit.dataset.demo + "/";
+        f.setAttribute("tabindex", "-1");
+        f.setAttribute("aria-hidden", "true");
+        f.setAttribute("scrolling", "no");
+        f.style.setProperty("--s", (shell.clientWidth / 1440).toFixed(4));
+        f.addEventListener("load", () => f.classList.add("up"), { once: true });
+        shell.appendChild(f);
+      }
+      function unmount() {
+        if (!hot) return;
+        const f = hot.querySelector("iframe");
+        if (f) f.remove();
+        hot = null;
+      }
+
+      if (fine) document.getElementById("items").addEventListener("pointerover", e => {
+        const hit = e.target.closest(".item__hit");
+        clearTimeout(timer);
+        if (!hit) { timer = setTimeout(unmount, 260); return; }
+        timer = setTimeout(() => mount(hit), 340);   // intent, not a fly-past
+      });
+
+      // ---- fullscreen preview ----
+      const peek = document.getElementById("peek"),
+        frame = document.getElementById("peekFrame"),
+        peekTitle = document.getElementById("peekTitle"),
+        peekOpen = document.getElementById("peekOpen"),
+        peekClose = document.getElementById("peekClose");
+      let opener = null, teardown = 0;
+
+      function openPeek(hit) {
+        const url = BASE + hit.dataset.demo + "/";
+        opener = hit;
+        clearTimeout(teardown);
+        unmount();
+        peekTitle.textContent = hit.querySelector(".item__meta b").textContent;
+        peekOpen.href = url;
+        frame.src = url;
+        peek.classList.add("open");
+        peek.setAttribute("aria-hidden", "false");
+        document.documentElement.style.overflow = "hidden";
+        peekClose.focus();
+      }
+      function closePeek() {
+        peek.classList.remove("open");
+        peek.setAttribute("aria-hidden", "true");
+        document.documentElement.style.overflow = "";
+        teardown = setTimeout(() => { frame.src = "about:blank"; }, 450);
+        if (opener) opener.focus();
+      }
+
+      document.getElementById("items").addEventListener("click", e => {
+        const hit = e.target.closest(".item__hit");
+        if (hit) openPeek(hit);
+      });
+      peekClose.addEventListener("click", closePeek);
+      addEventListener("keydown", e => {
+        if (e.key === "Escape" && peek.classList.contains("open")) closePeek();
+      });
+    })();
+  </script>
+</body>
+
+</html>

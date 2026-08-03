@@ -707,7 +707,7 @@
     <a class="brand" href="#top"><b>PIXELLA</b><span>Webdesign</span></a>
     <nav>
       <a data-to="2">Leistungen</a>
-      <a data-to="3">3D Motion</a>
+      <a href="portfolio.html">Portfolio</a>
       <a data-to="6">NIS2 &amp; WCAG</a>
       <a href="mailto:chris@pixella.at" class="pill">Projekt starten</a>
     </nav>
@@ -973,7 +973,10 @@
         // reveal on the first decoded frame, not on "playing" — a video paused at its
         // end never fires playing again, and the panel would fall back to the still
         v.addEventListener("loadeddata", () => v.classList.add("on"), { once: true });
-        v.addEventListener("ended", () => { v.dataset.done = "1"; }, { once: true });
+        // not once: the clip can run again on a later visit, and each ending has to
+        // set the flag — otherwise play() would be called on an ended video, which
+        // restarts it from zero and turns the panel into a loop
+        v.addEventListener("ended", () => { v.dataset.done = "1"; });
         p.insertBefore(v, p.querySelector(".still"));
         return v;
       }
@@ -996,8 +999,17 @@
       function play(p, on) {
         const v = p.querySelector("video");
         if (!v) return;
-        if (!on) { if (!v.paused) v.pause(); return; }
-        if (v.dataset.done) return;                       // frozen on the closing frame, for good
+        if (!on) {
+          if (!v.paused) v.pause();
+          // Rewind once it is off screen, so coming back — scrolling up, or jumping to
+          // the top — starts the clip over instead of leaving the last frame stuck.
+          if (v.dataset.done || v.currentTime > 0) {
+            v.dataset.done = "";
+            if (v.readyState >= 1) try { v.currentTime = 0; } catch (e) { }
+          }
+          return;
+        }
+        if (v.dataset.done) return;                       // holds the closing frame while it stays in view
         if (v.readyState >= 2) { if (v.paused) v.play().catch(() => { }); return; }
         // not decoded yet: start it the moment it can, if this panel is still the one on top
         if (!v.dataset.armed) {
